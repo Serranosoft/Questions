@@ -1,6 +1,5 @@
-import { StatusBar, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Font from "expo-font";
-import Names from "./Names";
 
 export default function Home({ navigation }) {
 
@@ -13,7 +12,13 @@ export default function Home({ navigation }) {
     const Button = ({ text }) => <Text style={{ fontSize: 25, fontFamily: "text" }}>{text}</Text>
 
     return (
-        <View style={styles.container}>
+        <View style={{
+            flex: 1,
+            alignItems: "center",
+            marginTop: StatusBar.currentHeight,
+            backgroundColor: "#F1285F",
+            paddingVertical: 80,
+        }}>
 
             <View style={{
                 width: 75,
@@ -23,7 +28,12 @@ export default function Home({ navigation }) {
             }}>
 
             </View>
-            <View style={styles.menu}>
+            <View style={{
+                width: "100%",
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() =>
@@ -46,19 +56,6 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: "#F1285F",
-        paddingVertical: 80,
-    },
-    menu: {
-        width: "100%",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-    },
     button: {
         display: "flex",
         justifyContent: "center",
