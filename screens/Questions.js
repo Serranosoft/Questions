@@ -1,16 +1,18 @@
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Font from "expo-font";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 
 export default function Questions({ route }) {
 
-    const { mode } = route.params;
+    const { mode, users } = route.params;
 
-    let questionsArr = [];
-    let questionsCount = 0;
+    let questionsArr = useRef([]); // Array de preguntas que ya han visto.
+    let questionsCount = useRef(0); // Cantidad de preguntas que hay en la base de datos.
+    let usersIndex = useRef(0); // Índice para saber que usuario es el que le toca responder.
 
     const [question, setQuestion] = useState("");
+    const [user, setUser] = useState("");
 
     Font.loadAsync({
         heading: require("../assets/fonts/Source_Code_Pro/static/SourceCodePro-SemiBold.ttf"),
@@ -18,7 +20,7 @@ export default function Questions({ route }) {
         text: require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
     
-
+    // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
         if (questionsCount == 0) {
             const fetchCount = async () => {
@@ -32,6 +34,25 @@ export default function Questions({ route }) {
         }
     })
 
+    // Al comenzar el juego, se obtiene una pregunta
+    useEffect(() => {
+        fetchQuestion();
+    }, [])
+
+    // Mostrar el usuario actual.
+    function fetchUser() {
+
+        let nextUser = users[usersIndex.current];
+        usersIndex.current++;
+
+        if (usersIndex.current == users.length) {
+            usersIndex.current = 0;
+        }
+
+        setUser(nextUser);
+    }
+
+    // Mostrar la pregunta
     const fetchQuestion = async () => {
         const { data, error } = await supabase
             .from(`random_${mode}`)
@@ -41,17 +62,18 @@ export default function Questions({ route }) {
 
         if (data) {
             setQuestion(data.Question);
+            fetchUser();
 
-            // 1. Se comprueba si la longitud de la bdd
-            // es la misma que la del array questionsArr
-            if (questionsArr.length === questionsCount) {
+            // Si el usuario ha visto todas las preguntas entonces se reinicia
+            if (questionsArr.current.length === questionsCount) {
                 questionsArr = [];
             }
 
-            if (questionsArr.includes(question)) {
+            // Controlar que el usuario no se le repita la misma pregunta dos veces en una misma sesión
+            if (questionsArr.current.includes(question)) {
                 fetchQuestion();
             } else {
-                questionsArr.push(data.question);
+                questionsArr.current.push(data.question);
             }
 
         }
@@ -62,10 +84,6 @@ export default function Questions({ route }) {
         }
     }
 
-    useEffect(() => {
-        fetchQuestion();
-    }, [])
-
     return (
         <View style={styles.container}>
 
@@ -75,7 +93,7 @@ export default function Questions({ route }) {
                 }}>
                 <Text
                     style={styles.name}>
-                    JAVIER
+                    {user}
                 </Text>
             </View>
 

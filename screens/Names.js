@@ -76,7 +76,7 @@ export default function Names({ navigation, route }) {
                 flex: 1,
             }}>
                 <TouchableOpacity onPress={() =>
-                    navigation.navigate("Questions", { mode: mode })
+                    navigation.navigate("Questions", { mode: mode, users: users })
                 }>
                     <Text style={{
                         paddingHorizontal: 16,
