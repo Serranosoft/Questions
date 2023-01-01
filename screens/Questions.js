@@ -1,4 +1,4 @@
-import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import * as Font from "expo-font";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
@@ -85,19 +85,39 @@ export default function Questions({ route }) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{
+            flex: 1,
+            alignItems: "center",
+            marginTop: StatusBar.currentHeight,
+            backgroundColor: "#F1285F",
+            paddingHorizontal: 40,
+            paddingVertical: 80,
+        }}>
 
             <View
                 style={{
                     flex: 1,
                 }}>
                 <Text
-                    style={styles.name}>
+                    style={{
+                        fontSize: 55,
+                        color: "white",
+                        fontFamily: "heading",
+                        letterSpacing: -5
+                    }}>
                     {user}
                 </Text>
             </View>
 
-            <View style={styles.card}>
+            <View style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                backgroundColor: "white",
+                paddingVertical: 16,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+            }}>
                 <Text
                     style={{
                         fontSize: 27.5,
@@ -117,7 +137,10 @@ export default function Questions({ route }) {
                 <TouchableOpacity
                     onPress={() => fetchQuestion()}>
                     <Image
-                        style={styles.nextImg}
+                        style={{
+                            width: 90,
+                            height: 90
+                        }}
                         source={require('../assets/next.png')}
                     />
                 </TouchableOpacity>
@@ -126,33 +149,3 @@ export default function Questions({ route }) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: "#F1285F",
-        paddingHorizontal: 40,
-        paddingVertical: 80,
-    },
-    name: {
-        fontSize: 55,
-        color: "white",
-        fontFamily: "heading",
-        letterSpacing: -5
-    },
-    card: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        backgroundColor: "white",
-        paddingVertical: 16,
-        paddingHorizontal: 16,
-        borderRadius: 8,
-    },
-    nextImg: {
-        width: 90,
-        height: 90
-    }
-})
