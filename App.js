@@ -1,14 +1,13 @@
-import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Home from './screens/Home';
 import * as Font from "expo-font";
 import Apploading from "expo-app-loading";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Questions from './screens/Questions';
 import 'react-native-url-polyfill/auto';
 import Names from './screens/Names';
+import { Audio } from 'expo-av';
 
 export default function App() {
 
@@ -20,6 +19,28 @@ export default function App() {
         subtitle: require("./assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
         text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
+
+    const [sound, setSound] = useState();
+
+    async function playSound() {
+        const { sound } = await Audio.Sound.createAsync(require('./assets/music.mp3'));
+        setSound(sound);
+        sound.setIsLoopingAsync(true);
+
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        playSound();
+    }, [])
+
+    useEffect(() => {
+        return sound
+          ? () => {
+              sound.unloadAsync();
+            }
+          : undefined;
+      }, [sound]);
 
 
 

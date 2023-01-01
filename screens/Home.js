@@ -1,9 +1,10 @@
 import { ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import "../src/fonts";
 
+
 export default function Home({ navigation }) {
 
-    const Button = ({ text }) => <Text style={{ fontSize: 25, fontFamily: "text" }}>{text}</Text>
+    const Button = ({ text }) => <Text style={{ fontSize: 30, fontFamily: "heading" }}>{text}</Text>
 
     return (
         <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
@@ -59,6 +60,11 @@ export default function Home({ navigation }) {
                 </View>
 
             </View>
+
+            <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
+                <Text style={{fontWeight: "bold"}}>v1.0.0</Text>
+            </View>
+
         </ImageBackground>
     )
 }
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 8,
         paddingVertical: 16,
-        backgroundColor: "white",
+        backgroundColor: "#e9eaec",
         marginVertical: 16,
         borderRadius: 100,
         width: "75%",

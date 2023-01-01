@@ -1,4 +1,4 @@
-import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
@@ -79,67 +79,82 @@ export default function Questions({ route }) {
     }
 
     return (
-        <View style={{
-            flex: 1,
-            alignItems: "center",
-            marginTop: StatusBar.currentHeight,
-            backgroundColor: "#F1285F",
-            paddingHorizontal: 40,
-            paddingVertical: 80,
-        }}>
 
-            <View
-                style={{
-                    flex: 1,
-                }}>
-                <Text
-                    style={{
-                        fontSize: 55,
-                        color: "white",
-                        fontFamily: "heading",
-                        letterSpacing: -5
-                    }}>
-                    {user}
-                </Text>
-            </View>
+        <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
+            style={{
+                width: '100%',
+                height: '100%',
+                flex: 1
+            }}>
 
             <View style={{
-                justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
-                backgroundColor: "white",
-                paddingVertical: 16,
-                paddingHorizontal: 16,
-                borderRadius: 8,
+                justifyContent: "space-between",
+                marginTop: StatusBar.currentHeight,
+                paddingHorizontal: 40,
+                paddingVertical: 80,
+                flex: 1,
             }}>
-                <Text
-                    style={{
-                        fontSize: 27.5,
-                        fontFamily: "text",
-                    }}>
-                    {question}
-                </Text>
 
-            </View>
-
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                }}>
-                <TouchableOpacity
-                    onPress={() => fetchQuestion()}>
-                    <Image
+                <View>
+                    <Text
+                        numberOfLines={2}
                         style={{
-                            width: 90,
-                            height: 90
-                        }}
-                        source={require('../assets/next.png')}
-                    />
-                </TouchableOpacity>
+                            fontSize: 55,
+                            color: "#e9eaec",
+                            fontFamily: "heading",
+                            textAlign: "center",
+                        }}>
+                        {user}
+                    </Text>
+                </View>
+
+                <View style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    backgroundColor: "#e9eaec",
+                    paddingVertical: 16,
+                    paddingHorizontal: 16,
+                    borderRadius: 8,
+                }}>
+                    <Text
+                        style={{
+                            fontSize: 30,
+                            fontFamily: "text",
+                            letterSpacing: -1.5,
+                            
+                        }}>
+                        {question}
+                    </Text>
+
+                </View>
+
+                <View
+                    style={{
+                        // justifyContent: "flex-end",
+                        // alignItems: "flex-end",
+                        // backgroundColor: "green"
+                    }}>
+                    <TouchableOpacity
+                        onPress={() => fetchQuestion()}>
+                        <Image
+                            style={{
+                                width: 150,
+                                height: 150,
+                                resizeMode: "contain",
+                            }}
+                            source={require('../assets/siguiente.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+
+            </View>
+            <View style={{paddingHorizontal: 8, alignItems: "flex-end"}}>
+                <Text style={{fontWeight: "bold"}}>v1.0.0</Text>
             </View>
 
-        </View>
+            </ImageBackground>
     )
 }
