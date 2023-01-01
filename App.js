@@ -25,7 +25,7 @@ export default function App() {
 
     if (fontsloaded) {
         return (
-
+            
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen
