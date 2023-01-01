@@ -1,7 +1,7 @@
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import * as Font from "expo-font";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
+import "../src/fonts";
 
 export default function Questions({ route }) {
 
@@ -13,12 +13,6 @@ export default function Questions({ route }) {
 
     const [question, setQuestion] = useState("");
     const [user, setUser] = useState("");
-
-    Font.loadAsync({
-        heading: require("../assets/fonts/Source_Code_Pro/static/SourceCodePro-SemiBold.ttf"),
-        subtitle: require("../assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
-        text: require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
-    });
 
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {

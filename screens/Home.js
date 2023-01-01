@@ -1,13 +1,7 @@
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import * as Font from "expo-font";
+import "../src/fonts";
 
 export default function Home({ navigation }) {
-
-    Font.loadAsync({
-        heading: require("../assets/fonts/Source_Code_Pro/static/SourceCodePro-SemiBold.ttf"),
-        subtitle: require("../assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
-        text: require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
-    });
 
     const Button = ({ text }) => <Text style={{ fontSize: 25, fontFamily: "text" }}>{text}</Text>
 

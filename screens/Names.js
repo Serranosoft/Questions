@@ -1,16 +1,8 @@
 import { ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import * as Font from "expo-font";
-import { useEffect, useState } from "react";
-import Questions from "./Questions";
+import { useState } from "react";
+import "../src/fonts";
 
 export default function Names({ navigation, route }) {
-
-    Font.loadAsync({
-        heading: require("../assets/fonts/Source_Code_Pro/static/SourceCodePro-SemiBold.ttf"),
-        subtitle: require("../assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
-        text: require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
-    });
-
     const { mode } = route.params;
 
     const [users, setUser] = useState([]);
@@ -106,7 +98,4 @@ export default function Names({ navigation, route }) {
 
         </View>
     )
-
-
-
 }
