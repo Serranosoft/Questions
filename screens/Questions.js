@@ -19,7 +19,7 @@ export default function Questions({ route }) {
         subtitle: require("../assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
         text: require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
-    
+
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
         if (questionsCount == 0) {
@@ -27,7 +27,7 @@ export default function Questions({ route }) {
                 const { data, count } = await supabase
                     .from(mode)
                     .select('*', { count: 'exact' })
-    
+
                 questionsCount = count;
             }
             fetchCount();
@@ -129,11 +129,11 @@ export default function Questions({ route }) {
             </View>
 
             <View
-            style={{
-                flex: 1,
-                justifyContent: "flex-end",
-                alignItems: "flex-end",
-            }}>
+                style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                }}>
                 <TouchableOpacity
                     onPress={() => fetchQuestion()}>
                     <Image

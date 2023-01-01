@@ -12,16 +12,26 @@ export default function Names({ navigation, route }) {
     });
 
     const { mode } = route.params;
-    
+
     const [users, setUser] = useState([]);
     const [userName, setUserName] = useState("");
 
     return (
-        <View style={styles.container}>
+        <View style={{
+            flex: 1,
+            alignItems: "center",
+            marginTop: StatusBar.currentHeight,
+            backgroundColor: "#F1285F",
+            paddingVertical: 80,
+            paddingHorizontal: 50
+        }}>
 
             <Text>Escribe el nombre de los participantes</Text>
 
-            <View style={styles.usersWrapper}>
+            <View style={{
+                flexDirection: "row",
+                alignItems: "center"
+            }}>
                 <TextInput
                     style={{
                         width: "70%",
@@ -32,7 +42,15 @@ export default function Names({ navigation, route }) {
                     placeholder="Paula"
                     onChangeText={text => setUserName(text)}
                 />
-                <TouchableOpacity style={styles.addBtn} onPress={() => setUser([...users, userName])}>
+                <TouchableOpacity style={{
+                    width: "30%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "white",
+                    height: 50,
+                    borderWidth: 1
+                }}
+                    onPress={() => setUser([...users, userName])}>
                     <Text>
                         Añadir
                     </Text>
@@ -92,26 +110,3 @@ export default function Names({ navigation, route }) {
 
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: "#F1285F",
-        paddingVertical: 80,
-        paddingHorizontal: 50
-    },
-    usersWrapper: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    addBtn: {
-        width: "30%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-        height: 50,
-        borderWidth: 1
-    }
-})
