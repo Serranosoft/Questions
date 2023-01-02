@@ -20,27 +20,27 @@ export default function App() {
         text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
 
-    const [sound, setSound] = useState();
+    // const [sound, setSound] = useState();
 
-    async function playSound() {
-        const { sound } = await Audio.Sound.createAsync(require('./assets/music.mp3'));
-        setSound(sound);
-        sound.setIsLoopingAsync(true);
+    // async function playSound() {
+    //     const { sound } = await Audio.Sound.createAsync(require('./assets/music.mp3'));
+    //     setSound(sound);
+    //     sound.setIsLoopingAsync(true);
 
-        await sound.playAsync();
-    }
+    //     await sound.playAsync();
+    // }
 
-    useEffect(() => {
-        playSound();
-    }, [])
+    // useEffect(() => {
+    //     playSound();
+    // }, [])
 
-    useEffect(() => {
-        return sound
-          ? () => {
-              sound.unloadAsync();
-            }
-          : undefined;
-      }, [sound]);
+    // useEffect(() => {
+    //     return sound
+    //       ? () => {
+    //           sound.unloadAsync();
+    //         }
+    //       : undefined;
+    //   }, [sound]);
 
 
 

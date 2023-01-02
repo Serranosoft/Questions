@@ -1,4 +1,4 @@
-import { ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import "../src/fonts";
 
 
@@ -17,7 +17,6 @@ export default function Home({ navigation }) {
                 flex: 1,
                 alignItems: "center",
                 marginTop: StatusBar.currentHeight,
-                // backgroundColor: "#F1285F",
                 paddingVertical: 60,
             }}>
                 <View
@@ -27,14 +26,17 @@ export default function Home({ navigation }) {
                         justifyContent: "center",
                         alignItems: "center"
                     }}>
-                    <View style={{
-                        width: 75,
-                        height: 75,
-                        borderRadius: 100,
-                        backgroundColor: "white"
-                    }}>
-                    </View>
 
+                    <Image
+                        source={require("../assets/logo-new.jpg")}
+                        style={{
+                            width: 150,
+                            height: 150,
+                            resizeMode: "contain",
+                            padding: 0,
+                            borderRadius: 100
+                        }} 
+                    />
                 </View>
                 <View style={{
                     width: "100%",
@@ -43,43 +45,39 @@ export default function Home({ navigation }) {
                     justifyContent: "center",
                 }}>
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() =>
                             navigation.navigate("Names", { mode: 'friends' })
                         }>
-                        <Button text="CON AMIGOS" />
+                        <Image
+                            source={require("../assets/boton-parejas.png")}
+                            style={{
+                                width: 230,
+                                resizeMode: "contain",
+                                padding: 0,
+                            }}
+                        />
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() =>
                             navigation.navigate("Names", { mode: 'couple' })
                         }>
-                        <Button text="PICANTE" />
+                        <Image
+                            source={require("../assets/boton-amigos.png")}
+                            style={{
+                                width: 230,
+                                resizeMode: "contain",
+                                padding: 0,
+                            }} />
                     </TouchableOpacity>
                 </View>
 
             </View>
 
             <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                <Text style={{fontWeight: "bold"}}>v1.0.0</Text>
+                <Text style={{ fontWeight: "bold" }}>v1.0.0</Text>
             </View>
 
         </ImageBackground>
     )
 }
-
-const styles = StyleSheet.create({
-    button: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 8,
-        paddingVertical: 16,
-        backgroundColor: "#e9eaec",
-        marginVertical: 16,
-        borderRadius: 100,
-        width: "75%",
-        textAlign: "center"
-    }
-})
