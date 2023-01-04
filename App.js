@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import Questions from './screens/Questions';
 import 'react-native-url-polyfill/auto';
 import Names from './screens/Names';
-import { Audio } from 'expo-av';
 
 export default function App() {
 
@@ -19,30 +18,6 @@ export default function App() {
         subtitle: require("./assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
         text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
-
-    // const [sound, setSound] = useState();
-
-    // async function playSound() {
-    //     const { sound } = await Audio.Sound.createAsync(require('./assets/music.mp3'));
-    //     setSound(sound);
-    //     sound.setIsLoopingAsync(true);
-
-    //     await sound.playAsync();
-    // }
-
-    // useEffect(() => {
-    //     playSound();
-    // }, [])
-
-    // useEffect(() => {
-    //     return sound
-    //       ? () => {
-    //           sound.unloadAsync();
-    //         }
-    //       : undefined;
-    //   }, [sound]);
-
-
 
     if (fontsloaded) {
         return (
