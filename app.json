@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Questions",
+    "name": "Shotask: Preguntas Picantes",
     "slug": "Questions",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/logo-new-icon.png",
     "userInterfaceStyle": "light",
@@ -22,9 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo-new-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "versionCode": 3,
       "package": "com.paulaymanu113.Questions"
     },
     "web": {
