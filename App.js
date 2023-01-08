@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
@@ -7,6 +8,7 @@ import Questions from './screens/Questions';
 import 'react-native-url-polyfill/auto';
 import Names from './screens/Names';
 import * as SplashScreen from 'expo-splash-screen';
+import * as Sentry from 'sentry-expo';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +23,14 @@ export default function App() {
         text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
     });
 
+
+    Sentry.init({
+        dsn: 'https://b3b066e512d040b4a23589905aa8e68c@o4504464048586752.ingest.sentry.io/4504464066281472',
+        enableInExpoDevelopment: true,
+        debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+    });
+    
+    
     useEffect(() => {
         async function prepare() {
             try {
