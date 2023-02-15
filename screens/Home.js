@@ -1,10 +1,7 @@
 import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import "../src/fonts";
 
-
 export default function Home({ navigation }) {
-
-    const Button = ({ text }) => <Text style={{ fontSize: 30, fontFamily: "heading" }}>{text}</Text>
 
     return (
         <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
@@ -75,7 +72,7 @@ export default function Home({ navigation }) {
             </View>
 
             <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                <Text style={{ fontWeight: "bold" }}>v1.0.0</Text>
+                <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
             </View>
 
         </ImageBackground>

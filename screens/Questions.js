@@ -2,6 +2,9 @@ import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from 
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = "ca-app-pub-3963345159052388/8141135317";
 
 export default function Questions({ route }) {
 
@@ -95,6 +98,13 @@ export default function Questions({ route }) {
                 paddingVertical: 80,
                 flex: 1,
             }}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.FULL_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
 
                 <View>
                     <Text
@@ -123,7 +133,7 @@ export default function Questions({ route }) {
                             fontSize: 30,
                             fontFamily: "text",
                             letterSpacing: -1.5,
-                            
+
                         }}>
                         {question}
                     </Text>
@@ -151,10 +161,10 @@ export default function Questions({ route }) {
 
 
             </View>
-            <View style={{paddingHorizontal: 8, alignItems: "flex-end"}}>
-                <Text style={{fontWeight: "bold"}}>v1.0.0</Text>
+            <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
+                <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
             </View>
 
-            </ImageBackground>
+        </ImageBackground>
     )
 }

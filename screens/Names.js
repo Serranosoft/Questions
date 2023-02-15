@@ -1,7 +1,8 @@
-import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions } from "react-native";
-import { useRef, useState } from "react";
+import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions, Button } from "react-native";
+import { useEffect, useRef, useState } from "react";
 import { Keyboard } from 'react-native'
 import "../src/fonts";
+import { useInterstitialAd } from 'react-native-google-mobile-ads';
 
 export default function Names({ navigation, route }) {
     const { mode } = route.params;
@@ -11,7 +12,20 @@ export default function Names({ navigation, route }) {
 
     let textInput = useRef();
 
-    const windowWidth = Dimensions.get('window').width;
+
+    const { isLoaded, isClosed, load, show } = useInterstitialAd("ca-app-pub-3963345159052388/3312260713", {
+        requestNonPersonalizedAdsOnly: true,
+    });
+
+    useEffect(() => {
+        load();
+    }, [load]);
+
+    useEffect(() => {
+        if (isClosed) {
+            navigation.navigate("Questions", { mode: mode, users: users })
+        }
+    }, [isClosed, navigation]);
 
     return (
 
@@ -21,7 +35,6 @@ export default function Names({ navigation, route }) {
                 height: '100%',
                 flex: 1
             }}>
-
             <View style={{
                 flex: 1,
                 alignItems: "space-between",
@@ -131,8 +144,13 @@ export default function Names({ navigation, route }) {
                 <View style={{
                     width: "100%",
                 }}>
-                    <TouchableOpacity style={{alignItems: "center"}} onPress={() =>
-                        navigation.navigate("Questions", { mode: mode, users: users })
+                    <TouchableOpacity style={{ alignItems: "center" }} onPress={() => {
+                        if (isLoaded) {
+                            show()
+                        } else {
+                            navigation.navigate("Questions", { mode: mode, users: users })
+                        }
+                    }
                     }>
                         <Image
                             source={require("../assets/play.png")}
@@ -147,7 +165,7 @@ export default function Names({ navigation, route }) {
             </View>
 
             <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                <Text style={{fontWeight: "bold"}}>v1.0.0</Text>
+                <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
             </View>
 
         </ImageBackground>

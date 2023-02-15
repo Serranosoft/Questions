@@ -38,7 +38,7 @@
                 "foregroundImage": "./assets/logo-new-icon.png",
                 "backgroundColor": "#FFFFFF"
             },
-            "versionCode": 8,
+            "versionCode": 9,
             "package": "com.paulaymanu113.Questions"
         },
         "web": {
@@ -55,5 +55,11 @@
         "plugins": [
             "sentry-expo"
         ]
+    },
+    
+    "react-native-google-mobile-ads": {
+      "android_app_id": "ca-app-pub-3963345159052388~4435137670",
+      "ios_app_id": "ca-app-pub-3963345159052388~4435137670"
     }
+    
 }
