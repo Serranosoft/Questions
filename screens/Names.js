@@ -2,7 +2,7 @@ import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, Touchab
 import { useEffect, useRef, useState } from "react";
 import { Keyboard } from 'react-native'
 import "../src/fonts";
-import { useInterstitialAd } from 'react-native-google-mobile-ads';
+import { useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
 
 export default function Names({ navigation, route }) {
     const { mode } = route.params;
@@ -13,7 +13,7 @@ export default function Names({ navigation, route }) {
     let textInput = useRef();
 
 
-    const { isLoaded, isClosed, load, show } = useInterstitialAd("ca-app-pub-3963345159052388/3312260713", {
+    const { isLoaded, isClosed, load, show } = useInterstitialAd("ca-app-pub-3963345159052388/3312260713"/* TestIds.INTERSTITIAL */, {
         requestNonPersonalizedAdsOnly: true,
     });
 

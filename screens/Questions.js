@@ -2,9 +2,13 @@ import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from 
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
+import InAppReview from 'react-native-in-app-review';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const adUnitId = "ca-app-pub-3963345159052388/8141135317";
+
+InAppReview.isAvailable();
 
 export default function Questions({ route }) {
 
@@ -14,8 +18,21 @@ export default function Questions({ route }) {
     let questionsCount = useRef(0); // Cantidad de preguntas que hay en la base de datos.
     let usersIndex = useRef(0); // Índice para saber que usuario es el que le toca responder.
 
+    const [triggerAd, setTriggerAd] = useState(0);
     const [question, setQuestion] = useState("");
     const [user, setUser] = useState("");
+    
+    const { isLoaded, isClosed, load, show } = useInterstitialAd("ca-app-pub-3963345159052388/3312260713"/* TestIds.INTERSTITIAL */, {
+        requestNonPersonalizedAdsOnly: true,
+    });
+
+    useEffect(() => {
+        load();
+    }, [load]);
+
+    useEffect(() => {
+        load();
+    }, [isClosed])
 
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
@@ -34,7 +51,18 @@ export default function Questions({ route }) {
     // Al comenzar el juego, se obtiene una pregunta
     useEffect(() => {
         fetchQuestion();
+        load();
     }, [])
+
+    useEffect(() => {
+        if (triggerAd === 10) {
+            // Trigger intersitial
+            if (isLoaded) {
+                show();
+            }
+            setTriggerAd(0)
+        }
+    }, [triggerAd])
 
     // Mostrar el usuario actual.
     function fetchUser() {
@@ -56,21 +84,21 @@ export default function Questions({ route }) {
             .select("Question")
             .limit(1)
             .single();
-
         if (data) {
             setQuestion(data.Question);
             fetchUser();
-
+            
             // Si el usuario ha visto todas las preguntas entonces se reinicia
             if (questionsArr.current.length === questionsCount) {
                 questionsArr = [];
             }
-
+            
             // Controlar que el usuario no se le repita la misma pregunta dos veces en una misma sesión
             if (questionsArr.current.includes(question)) {
                 fetchQuestion();
             } else {
                 questionsArr.current.push(data.question);
+                setTriggerAd(() => triggerAd + 1);
             }
 
         }
@@ -80,6 +108,37 @@ export default function Questions({ route }) {
             console.log(error);
         }
     }
+
+    async function askForReview() {
+
+        const dateStorage = await AsyncStorage.getItem("@launch-app-review");
+        if (dateStorage) {
+            if (new Date().getTime() >= parseInt(JSON.parse(dateStorage))) {
+                showRatingModal();
+            }
+        } else {
+            let date = new Date();
+            date.setDate(new Date().getDate() + 10);
+            await AsyncStorage.setItem("@launch-app-review", JSON.stringify(date.getTime()));
+        }
+
+    }
+
+    async function showRatingModal() {
+        InAppReview.RequestInAppReview().then(async () => {
+
+            let date = new Date();
+            date.setDate(new Date().getDate() + 10);
+            await AsyncStorage.setItem("@launch-app-review", JSON.stringify(date.getTime()));
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    useEffect(() => {
+        askForReview();
+    }, [])
 
     return (
 
@@ -99,8 +158,8 @@ export default function Questions({ route }) {
                 flex: 1,
             }}>
                 <BannerAd
-                    unitId={adUnitId}
-                    size={BannerAdSize.FULL_BANNER}
+                    unitId={adUnitId/* TestIds.BANNER */}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                     requestOptions={{
                         requestNonPersonalizedAdsOnly: true,
                     }}
