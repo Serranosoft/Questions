@@ -116,23 +116,22 @@ export default function Questions({ route }) {
             // Si existe asyncStorage, entonces comprobar si cumple la condición y entonces mostrar el rating modal.
             if (new Date().getTime() >= parseInt(JSON.parse(dateStorage))) {
                 showRatingModal();
+                let date = new Date();
+                date.setDate(new Date().getDate() + 10);
+                await AsyncStorage.setItem("@launch-app-review", JSON.stringify(date.getTime()));    
             }
         } else {
             // Si no existe asyncStorage, entonces implementarlo y mostrar el rating modal.
+            showRatingModal();
             let date = new Date();
             date.setDate(new Date().getDate() + 10);
             await AsyncStorage.setItem("@launch-app-review", JSON.stringify(date.getTime()));
-            showRatingModal();
         }
 
     }
 
     async function showRatingModal() {
         InAppReview.RequestInAppReview().then(async () => {
-
-            let date = new Date();
-            date.setDate(new Date().getDate() + 10);
-            await AsyncStorage.setItem("@launch-app-review", JSON.stringify(date.getTime()));
 
         }).catch((error) => {
             console.log(error);
