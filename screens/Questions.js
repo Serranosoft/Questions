@@ -27,13 +27,13 @@ export default function Questions({ route }) {
 
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
-        if (questionsCount == 0) {
+        if (questionsCount.current == 0) {
             const fetchCount = async () => {
                 const { data, count } = await supabase
                     .from(mode)
                     .select('*', { count: 'exact' })
 
-                questionsCount = count;
+                questionsCount.current = count;
             }
             fetchCount();
         }
@@ -68,35 +68,28 @@ export default function Questions({ route }) {
 
     // Mostrar la pregunta
     const fetchQuestion = async () => {
-        const { data, error } = await supabase
-            .from(`random_${mode}`)
-            .select("Question")
-            .limit(1)
-            .single();
+
+        const {data, error} = await supabase
+        .from(`random_${mode}`)
+        .select("Question")
+        .limit(1)
+        .single()
+
         if (data) {
-            setQuestion(data.Question);
-            fetchUser();
-            
-            // Si el usuario ha visto todas las preguntas entonces se reinicia
+            // Comprobar si ya ha leído todas las preguntas.
             if (questionsArr.current.length === questionsCount) {
-                console.log("Todas las preguntas vistas.");
                 questionsArr.current = [];
-            }
-            
-            // Controlar que el usuario no se le repita la misma pregunta dos veces en una misma sesión
-            if (questionsArr.current.includes(question)) {
-                console.log("La pregunta existe, mostrar otra.");
+            } else if (questionsArr.current.includes(data.Question)) {
                 fetchQuestion();
             } else {
-                questionsArr.current.push(data.question);
-                setTriggerAd(() => triggerAd + 1);
+                questionsArr.current.push(data.Question);
+                fetchUser(); // Cambia de jugador
+                setQuestion(data.Question); // Agrega la pregunta a la tarjeta
+                setTriggerAd(() => triggerAd + 1); // Sumamos 1 para saber cuando mostrar un anuncio nuevo
+
             }
-
-        }
-
-        if (error) {
-            console.error("Error");
-            console.log(error);
+        } else if (error) {
+            console.error(error);
         }
     }
 
