@@ -1,12 +1,13 @@
 import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
 import { BannerAd, BannerAdSize, TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
 import InAppReview from 'react-native-in-app-review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const adUnitId = "ca-app-pub-3963345159052388/8141135317";
+import Question from "../src/components/Question"
+import AdsHandler from "../src/components/AdsHandler"
+import { bannerId } from "../src/utils/constants"
 
 InAppReview.isAvailable();
 
@@ -21,18 +22,8 @@ export default function Questions({ route }) {
     const [triggerAd, setTriggerAd] = useState(0);
     const [question, setQuestion] = useState("");
     const [user, setUser] = useState("");
-    
-    const { isLoaded, isClosed, load, show } = useInterstitialAd("ca-app-pub-3963345159052388/3312260713"/* TestIds.INTERSTITIAL */, {
-        requestNonPersonalizedAdsOnly: true,
-    });
 
-    useEffect(() => {
-        load();
-    }, [load]);
-
-    useEffect(() => {
-        load();
-    }, [isClosed])
+    const adsHandlerRef = createRef();
 
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
@@ -51,16 +42,14 @@ export default function Questions({ route }) {
     // Al comenzar el juego, se obtiene una pregunta
     useEffect(() => {
         fetchQuestion();
-        load();
     }, [])
 
     useEffect(() => {
-        if (triggerAd === 10) {
-            // Trigger intersitial
-            if (isLoaded) {
-                show();
-            }
+        if (triggerAd === 20) {
+            adsHandlerRef.current.showIntersitialAd();
             setTriggerAd(0)
+        } else if (triggerAd === 17) {
+            askForReview();
         }
     }, [triggerAd])
 
@@ -90,11 +79,13 @@ export default function Questions({ route }) {
             
             // Si el usuario ha visto todas las preguntas entonces se reinicia
             if (questionsArr.current.length === questionsCount) {
-                questionsArr = [];
+                console.log("Todas las preguntas vistas.");
+                questionsArr.current = [];
             }
             
             // Controlar que el usuario no se le repita la misma pregunta dos veces en una misma sesión
             if (questionsArr.current.includes(question)) {
+                console.log("La pregunta existe, mostrar otra.");
                 fetchQuestion();
             } else {
                 questionsArr.current.push(data.question);
@@ -138,94 +129,73 @@ export default function Questions({ route }) {
         });
     }
 
-    useEffect(() => {
-        askForReview();
-    }, [])
-
     return (
-
-        <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
-            style={{
-                width: '100%',
-                height: '100%',
-                flex: 1
-            }}>
-
-            <View style={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: StatusBar.currentHeight,
-                paddingHorizontal: 40,
-                paddingVertical: 80,
-                flex: 1,
-            }}>
-                <BannerAd
-                    unitId={adUnitId/* TestIds.BANNER */}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{
-                        requestNonPersonalizedAdsOnly: true,
-                    }}
-                />
-
-                <View>
-                    <Text
-                        numberOfLines={2}
-                        style={{
-                            fontSize: 55,
-                            color: "#e9eaec",
-                            fontFamily: "heading",
-                            textAlign: "center",
-                        }}>
-                        {user}
-                    </Text>
-                </View>
+        <>
+            <AdsHandler ref={adsHandlerRef} adType={[0]} />
+            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1
+                }}>
 
                 <View style={{
-                    justifyContent: "center",
                     alignItems: "center",
-                    width: "100%",
-                    backgroundColor: "#e9eaec",
-                    paddingVertical: 16,
-                    paddingHorizontal: 16,
-                    borderRadius: 8,
+                    justifyContent: "space-between",
+                    marginTop: StatusBar.currentHeight,
+                    paddingHorizontal: 40,
+                    paddingVertical: 80,
+                    flex: 1,
                 }}>
-                    <Text
-                        style={{
-                            fontSize: 30,
-                            fontFamily: "text",
-                            letterSpacing: -1.5,
+                    <BannerAd
+                        unitId={/* bannerId */TestIds.BANNER}
+                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                        requestOptions={{
+                            requestNonPersonalizedAdsOnly: true,
+                        }}
+                    />
 
-                        }}>
-                        {question}
-                    </Text>
-
-                </View>
-
-                <View
-                    style={{
-                        // justifyContent: "flex-end",
-                        // alignItems: "flex-end",
-                        // backgroundColor: "green"
-                    }}>
-                    <TouchableOpacity
-                        onPress={() => fetchQuestion()}>
-                        <Image
+                    <View>
+                        <Text
+                            numberOfLines={2}
                             style={{
-                                width: 150,
-                                height: 150,
-                                resizeMode: "contain",
-                            }}
-                            source={require('../assets/siguiente.png')}
-                        />
-                    </TouchableOpacity>
+                                fontSize: 55,
+                                color: "#e9eaec",
+                                fontFamily: "heading",
+                                textAlign: "center",
+                            }}>
+                            {user}
+                        </Text>
+                    </View>
+
+                    <Question question={question} />
+
+                    <View
+                        style={{
+                            // justifyContent: "flex-end",
+                            // alignItems: "flex-end",
+                            // backgroundColor: "green"
+                        }}>
+                        <TouchableOpacity
+                            onPress={() => fetchQuestion()}>
+                            <Image
+                                style={{
+                                    width: 150,
+                                    height: 150,
+                                    resizeMode: "contain",
+                                }}
+                                source={require('../assets/siguiente.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+
+                </View>
+                <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
+                    <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
                 </View>
 
-
-            </View>
-            <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
-            </View>
-
-        </ImageBackground>
+            </ImageBackground>
+        </>
     )
 }
