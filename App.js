@@ -10,6 +10,7 @@ import Names from './screens/Names';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Sentry from 'sentry-expo';
 import { MobileAds } from 'react-native-google-mobile-ads';
+import { StatusBar, StyleSheet, View } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -69,25 +70,34 @@ export default function App() {
         return (
 
             <NavigationContainer>
-                <Stack.Navigator initialRouteName='Home'>
-                    <Stack.Screen
-                        name="Home"
-                        component={Home}
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="Questions"
-                        component={Questions}
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="Names"
-                        component={Names}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
+                <View style={styles.container}>
+                    <Stack.Navigator initialRouteName='Home'>
+                        <Stack.Screen
+                            name="Home"
+                            component={Home}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="Questions"
+                            component={Questions}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="Names"
+                            component={Names}
+                            options={{ headerShown: false }}
+                        />
+                    </Stack.Navigator>
+                </View>
             </NavigationContainer>
         );
     }
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        // marginTop: StatusBar.currentHeight,
+    }
+})

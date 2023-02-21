@@ -1,80 +1,68 @@
-import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import "../src/fonts";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function Home({ navigation }) {
 
     return (
-        <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
-            style={{
-                width: '100%',
-                height: '100%',
-                flex: 1
-            }}>
-            <View style={{
-                flex: 1,
-                alignItems: "center",
-                marginTop: StatusBar.currentHeight,
-                paddingVertical: 60,
-            }}>
-                <View
-                    style={{
-                        flex: 1,
-                        width: "100%",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
-
-                    <Image
-                        source={require("../assets/logo-new.jpg")}
-                        style={{
-                            width: 150,
-                            height: 150,
-                            resizeMode: "contain",
-                            padding: 0,
-                            borderRadius: 100
-                        }} 
-                    />
-                </View>
-                <View style={{
-                    width: "100%",
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate("Names", { mode: 'friends' })
-                        }>
-                        <Image
-                            source={require("../assets/boton-parejas.png")}
-                            style={{
-                                width: 230,
-                                resizeMode: "contain",
-                                padding: 0,
-                            }}
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate("Names", { mode: 'couple' })
-                        }>
-                        <Image
-                            source={require("../assets/boton-amigos.png")}
-                            style={{
-                                width: 230,
-                                resizeMode: "contain",
-                                padding: 0,
-                            }} />
-                    </TouchableOpacity>
-                </View>
-
+        <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover" style={styles.container}>
+            <View style={styles.menu}>
+                <Image source={require("../assets/logo-new.jpg")} style={styles.logo} 
+                />
+                <TouchableOpacity
+                    onPress={() =>
+                        navigation.navigate("Names", { mode: 'friends' })
+                    }>
+                    <Image source={require("../assets/boton-parejas.png")} style={styles.button} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() =>
+                        navigation.navigate("Names", { mode: 'couple' })
+                    }>
+                    <Image source={require("../assets/boton-amigos.png")} style={styles.button} />
+                </TouchableOpacity>
             </View>
 
-            <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
+            <View style={styles.version}>
+                <Text style={styles.versionText}>v1.1.0</Text>
             </View>
 
         </ImageBackground>
     )
 }
+
+const win = Dimensions.get('window');
+const logoRatio = win.width/512;
+
+const styles = StyleSheet.create({
+    container: {
+        width: wp("100%"),
+        height: hp("100%")
+    },
+    menu: {
+        width: wp("100%"),
+        height: hp("95%"),
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    logo: {
+        width: win.width / 2,
+        height: (512 * logoRatio) / 2,
+        borderRadius: 100,
+        marginBottom: "20%",
+    },
+    button: {
+        width: wp("75%"),
+        resizeMode: "contain",
+        marginBottom: "10%",
+    },
+    version: {
+        width: wp("100%"),
+        height: hp("5%"),
+        alignItems: "flex-end"
+    },
+    versionText: {
+        fontWeight: "bold"
+    }
+
+})
