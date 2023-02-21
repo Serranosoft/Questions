@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     version: {
         width: wp("100%"),
         height: hp("5%"),
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        paddingHorizontal: 8
     },
     versionText: {
         fontWeight: "bold"
