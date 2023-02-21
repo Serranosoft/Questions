@@ -20,9 +20,8 @@ export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
 
     const getFonts = () => Font.loadAsync({
-        heading: require("./assets/fonts/Source_Code_Pro/static/SourceCodePro-SemiBold.ttf"),
-        subtitle: require("./assets/fonts/Pragati_Narrow/PragatiNarrow-Regular.ttf"),
-        text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf")
+        heading: require("./assets/fonts/Chewy/Chewy-Regular.ttf"),
+        text: require("./assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf"),
     });
 
 

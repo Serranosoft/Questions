@@ -1,8 +1,9 @@
-import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions, Button } from "react-native";
+import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions, Button, StyleSheet } from "react-native";
 import { createRef, useRef, useState } from "react";
 import { Keyboard } from 'react-native'
 import "../src/fonts";
 import AdsHandler from "../src/components/AdsHandler";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function Names({ navigation, route }) {
     const { mode } = route.params;
@@ -18,149 +19,186 @@ export default function Names({ navigation, route }) {
         navigation.navigate("Questions", { mode: mode, users: users })
     }
 
+    function add() {
+        if (userName.length > 0) {
+            setUser([...users, userName]);
+            Keyboard.dismiss();
+            textInput.current.clear();
+            setUserName("");
+        }
+    }
+
     return (
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} closedIntersitialCallback={() => {closedIntersitialCallback()} }/>
-            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    flex: 1
-                }}>
-                <View style={{
-                    flex: 1,
-                    alignItems: "space-between",
-                    justifyContent: "space-between",
-                    marginTop: StatusBar.currentHeight,
-                    paddingVertical: 8,
-                    paddingHorizontal: 50,
-                }}>
-
-                    <View style={{ marginBottom: 45 }}>
-                        <Text style={{ fontSize: 42.5, fontFamily: "heading", textAlign: "center", color: "#e9eaec" }}>Escribe el nombre de los {"\n"}participantes</Text>
+            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover" style={styles.container}>
+                <View style={styles.itemsWrapper}>
+                    <View style={styles.headingWrapper}>
+                        <Text style={styles.heading}>Apunta el nombre de los jugadores</Text>
                     </View>
 
-                    <View style={{
-                        flex: 1,
-                        width: "100%",
-                    }}>
-
-                        <View style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            marginBottom: 30,
-                        }}>
-                            <TextInput
-                                style={{
-                                    height: 60,
-                                    backgroundColor: "#e9eaec",
-                                    borderRadius: 10,
-                                    fontSize: 20,
-                                    borderColor: "F8DEFF",
-                                    paddingHorizontal: 20,
-                                    flex: 1,
-                                }}
-                                placeholder="Añadid a los jugadores"
-                                onChangeText={text => setUserName(text)}
-                                ref={textInput}
-                                clearButtonMode="always"
-                            />
-                            <TouchableOpacity style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                marginLeft: 10,
-                                // padding: 20,
-                            }}
-                                onPress={() => {
-                                    if (userName.length > 0) {
-                                        setUser([...users, userName]);
-                                        Keyboard.dismiss();
-                                        textInput.current.clear();
-                                        setUserName("");
-                                    }
-                                }}>
-                                <Image
-                                    source={require("../assets/mas.png")}
-                                    style={{
-                                        width: 50,
-                                        resizeMode: "contain",
-                                        flex: 1
-                                    }} />
-
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={{
-                            marginTop: 8,
-                            flex: 1,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "#e9eaec",
-                            borderRadius: 30,
-                            marginBottom: 30,
-                        }}>
-                            <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{
-                                paddingHorizontal: 24,
-                                marginVertical: 16,
-                            }}>
-                                {users.map((user, index) => (
-                                    <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 16 }}>
-                                        <Text numberOfLines={1} style={{ fontSize: 23, color: "black", flex: 1 }}>{user}</Text>
-                                        <TouchableOpacity style={{
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            marginLeft: 10
-                                        }} onPress={() => {
-                                            let usersAux = users.filter((el, i) => i !== index);
-                                            setUser(usersAux);
-                                        }}>
-                                            <Image
-                                                source={require("../assets/equis.png")}
-                                                resizeMode="contain"
-                                                style={{
-                                                    width: 35,
-                                                    height: 35,
-                                                    marginLeft: 16,
-                                                }} />
-                                        </TouchableOpacity>
-                                    </View>
-                                ))
-
-                                }
-                            </ScrollView>
-                        </View>
-
-
-                    </View>
-
-                    <View style={{
-                        width: "100%",
-                    }}>
-                        <TouchableOpacity style={{ alignItems: "center" }} onPress={() => {
-                            if (adsHandlerRef.current.isLoadedIntersitial()) {
-                                adsHandlerRef.current.showIntersitialAd()
-                            } else {
-                                navigation.navigate("Questions", { mode: mode, users: users })
-                            }
-                        }
-                        }>
-                            <Image
-                                source={require("../assets/play.png")}
-                                style={{
-                                    width: "75%",
-                                    resizeMode: "contain",
-                                    padding: 0,
-                                }} />
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Añade un jugador"
+                            onChangeText={text => setUserName(text)}
+                            ref={textInput}
+                            clearButtonMode="always"
+                            onSubmitEditing={() => add()}
+                        />
+                        <TouchableOpacity style={styles.inputSubmit} onPress={() => add()}>
+                            <Image resizeMode="contain" style={styles.inputSubmitImage} source={require("../assets/mas.png")} />
                         </TouchableOpacity>
                     </View>
 
+                    <ScrollView contentContainerStyle={styles.scrollContainerContent} style={styles.scrollContainer}>
+                        {
+                            users.map((user, index) => (
+                                <View style={styles.scrollContainerRow}>
+                                    <Text numberOfLines={1} style={styles.scrollContainerRowName}>{user}</Text>
+                                    <TouchableOpacity style={styles.scrollContainerRowImageWrapper} onPress={() => {
+                                        let usersAux = users.filter((el, i) => i !== index);
+                                        setUser(usersAux);
+                                    }}>
+                                        <Image source={require("../assets/equis.png")} style={styles.scrollContainerRowImage} />
+                                    </TouchableOpacity>
+                                </View>
+                            ))
+                        }
+                    </ScrollView>
+
+                    <TouchableOpacity /* styles={styles.playButtonWrapper}  */onPress={() => {
+                        if (adsHandlerRef.current.isLoadedIntersitial()) {
+                            adsHandlerRef.current.showIntersitialAd()
+                        } else {
+                            navigation.navigate("Questions", { mode: mode, users: users })
+                        }
+                    }
+                    }>
+                        <Image source={require("../assets/play.png")} style={styles.playButton} />
+                    </TouchableOpacity>
                 </View>
 
-                <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                    <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
+                <View style={styles.version}>
+                    <Text style={styles.versionText}>v1.1.0</Text>
                 </View>
 
             </ImageBackground>
         </>
     )
 }
+
+const win = Dimensions.get('window');
+const inputCrossRatio = win.width / 525;
+
+const styles = StyleSheet.create({
+    container: {
+        width: wp("100%"),
+        height: hp("100%"),
+        paddingTop: hp("7%"),
+        alignItems: "center",
+        backgroundColor: "red"
+    },
+    itemsWrapper: {
+        width: wp("100%"),
+        height: hp("90%"),
+    },
+    headingWrapper: {
+        width: "90%",
+        marginBottom: "5%",
+        alignSelf: "center",
+    },
+    heading: {
+        fontFamily: "heading", 
+        textAlign: "center",
+        color: "#e9eaec",
+        fontSize: 45,
+        letterSpacing: -1,
+    },
+    inputWrapper: {
+        width: "90%",
+        height: "7%",
+        marginBottom: "5%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        alignSelf: "center",
+
+    },
+    input: {
+        width: "75%",
+        marginRight: "5%",
+        backgroundColor: "#e9eaec",
+        paddingLeft: 8,
+        height: "100%",
+        fontSize: 20,
+        fontFamily: "heading",
+        borderRadius: 16,
+    },
+    inputSubmit: {
+        width: "20%",
+    },
+    inputSubmitImage: {
+        width: "100%", 
+        height: "100%"
+    },
+    scrollContainer: {
+        width: "90%",
+        height: "50%",
+        marginBottom: "5%",
+        backgroundColor: "rgba(0,0,0,0.55)",
+        borderRadius: 10,
+        alignSelf: "center"
+    },
+    scrollContainerContent: {
+        paddingHorizontal: 16,
+    },
+
+    scrollContainerRow: {
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        marginVertical: 16
+    },
+    scrollContainerRowName: {
+        width: "85%",
+        fontSize: 23, 
+        color: "white",
+        fontFamily: "heading"
+    },
+    scrollContainerRowImageWrapper: {
+        width: "15%",
+    },
+    scrollContainerRowImage: {
+        width: "100%",
+        height: (500 * inputCrossRatio) / 10,
+        resizeMode: "contain"
+    },
+    playButtonWrapper: {
+        width: "100%",
+        height: hp("10%"),
+        alignItems: "center",
+        justifyContent: "center",
+        alignSelf: "center",
+
+    },
+    playButton: {
+        width: "75%",
+        height: 150,
+        resizeMode: "contain",
+        alignSelf: "center"
+
+    },
+    version: {
+        width: wp("100%"),
+        height: hp("5%"),
+        alignItems: "flex-end",
+        paddingHorizontal: 8
+    },
+    versionText: {
+        fontWeight: "bold"
+    }
+    
+})
+
+

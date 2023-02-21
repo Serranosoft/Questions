@@ -1,4 +1,4 @@
-import { Image, ImageBackground, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Question from "../src/components/Question"
 import AdsHandler from "../src/components/AdsHandler"
 import { bannerId } from "../src/utils/constants"
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 InAppReview.isAvailable();
 
@@ -125,21 +126,15 @@ export default function Questions({ route }) {
     return (
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} />
-            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover"
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    flex: 1
-                }}>
+            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover" style={styles.container}>
 
-                <View style={{
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: StatusBar.currentHeight,
-                    paddingHorizontal: 40,
-                    paddingVertical: 80,
-                    flex: 1,
-                }}>
+                <View style={styles.itemsWrapper}>
+                    <View style={styles.nameWrapper}>
+                        <Text numberOfLines={2} style={styles.name}>
+                            {user}
+                        </Text>
+                    </View>
+
                     <BannerAd
                         unitId={/* bannerId */TestIds.BANNER}
                         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -148,47 +143,64 @@ export default function Questions({ route }) {
                         }}
                     />
 
-                    <View>
-                        <Text
-                            numberOfLines={2}
-                            style={{
-                                fontSize: 55,
-                                color: "#e9eaec",
-                                fontFamily: "heading",
-                                textAlign: "center",
-                            }}>
-                            {user}
-                        </Text>
-                    </View>
-
                     <Question question={question} />
 
-                    <View
-                        style={{
-                            // justifyContent: "flex-end",
-                            // alignItems: "flex-end",
-                            // backgroundColor: "green"
-                        }}>
-                        <TouchableOpacity
-                            onPress={() => fetchQuestion()}>
-                            <Image
-                                style={{
-                                    width: 150,
-                                    height: 150,
-                                    resizeMode: "contain",
-                                }}
-                                source={require('../assets/siguiente.png')}
-                            />
-                        </TouchableOpacity>
-                    </View>
-
-
+                    <TouchableOpacity onPress={() => fetchQuestion()} style={styles.nextBtnWrapper}>
+                        <Image style={styles.nextBtn} source={require('../assets/siguiente.png')} />
+                    </TouchableOpacity>
                 </View>
-                <View style={{ paddingHorizontal: 8, alignItems: "flex-end" }}>
-                    <Text style={{ fontWeight: "bold" }}>v1.0.1</Text>
+
+                <View style={styles.version}>
+                    <Text style={styles.versionText}>v1.1.0</Text>
                 </View>
 
             </ImageBackground>
         </>
     )
 }
+
+const win = Dimensions.get('window');
+const nextBtnRatio = win.width / 527;
+
+const styles = StyleSheet.create({
+    container: {
+        width: wp("100%"),
+        height: hp("100%"),
+        paddingTop: hp("7%"),
+    },
+    itemsWrapper: {
+        width: wp("100%"),
+        height: hp("90%"),
+        alignItems: "center",
+    },
+    nameWrapper: {
+        height: "10%",
+        width: "85%",
+        marginBottom: "5%",
+    },
+    name: {
+        fontSize: 55,
+        color: "#e9eaec",
+        fontFamily: "heading",
+        textAlign: "center",
+    },
+    nextBtnWrapper: {
+        width: "85%",
+        alignItems: "center",
+    },
+    nextBtn: {
+        width: win.width / 3,
+        height: (500 * nextBtnRatio) / 3,
+        resizeMode: "contain"
+    },
+    version: {
+        width: wp("100%"),
+        height: hp("5%"),
+        alignItems: "flex-end",
+        paddingHorizontal: 8,
+    },
+    versionText: {
+        fontWeight: "bold"
+    }
+
+})
