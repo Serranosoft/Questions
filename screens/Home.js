@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         height: hp("100%")
     },
     menu: {
-        width: wp("100%"),
-        height: hp("95%"),
+        width: "100%",
+        height: "95%",
         justifyContent: "center",
         alignItems: "center",
     },
@@ -57,10 +57,11 @@ const styles = StyleSheet.create({
         marginBottom: "10%",
     },
     version: {
-        width: wp("100%"),
-        height: hp("5%"),
+        width: "100%",
+        height: "5%",
         alignItems: "flex-end",
-        paddingHorizontal: 8
+        justifyContent: "flex-end",
+        paddingHorizontal: 8,
     },
     versionText: {
         fontWeight: "bold"

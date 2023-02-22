@@ -143,7 +143,7 @@ export default function Questions({ route }) {
                         }}
                     />
 
-                    <Question question={question} />
+                    <Question question={question} fetchQuestion={() => fetchQuestion()} />
 
                     <TouchableOpacity onPress={() => fetchQuestion()} style={styles.nextBtnWrapper}>
                         <Image style={styles.nextBtn} source={require('../assets/siguiente.png')} />
@@ -185,13 +185,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     nextBtnWrapper: {
-        width: "85%",
         alignItems: "center",
     },
     nextBtn: {
         width: win.width / 3,
         height: (500 * nextBtnRatio) / 3,
-        resizeMode: "contain"
+        resizeMode: "contain",
     },
     version: {
         width: wp("100%"),
