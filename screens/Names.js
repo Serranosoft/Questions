@@ -1,16 +1,34 @@
 import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions, Button, StyleSheet } from "react-native";
-import { createRef, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { Keyboard } from 'react-native'
 import "../src/fonts";
 import AdsHandler from "../src/components/AdsHandler";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import LottieView from 'lottie-react-native';
 
 export default function Names({ navigation, route }) {
     const { mode } = route.params;
 
     const [users, setUser] = useState([]);
     const [userName, setUserName] = useState("");
+    const [avatar, setAvatar] = useState(require("../assets/lottie/smily.json") );
 
+    useEffect(() => {
+        if (mode) {
+            switch(mode) {
+                case "couple":
+                    setAvatar(require("../assets/lottie/kiss.json") );
+                    break;
+                case "friends":
+                    setAvatar(require("../assets/lottie/smily.json") );
+                    break;
+                case "i_never":
+                    setAvatar(require("../assets/lottie/crazy-tongue.json") );
+                    break;
+            }
+        }
+    }, [mode])
+    
     let textInput = useRef();
 
     const adsHandlerRef = createRef();
@@ -27,19 +45,21 @@ export default function Names({ navigation, route }) {
             setUserName("");
         }
     }
+    
 
     return (
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} closedIntersitialCallback={() => {closedIntersitialCallback()} }/>
-            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover" style={styles.container}>
+            <View styles={styles.container}>
+                <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
                 <View style={styles.itemsWrapper}>
                     <View style={styles.headingWrapper}>
-                        <Text style={styles.heading}>Apunta el nombre de los jugadores</Text>
+                        <Text style={styles.heading}>Jugadores</Text>
                     </View>
-
                     <View style={styles.inputWrapper}>
                         <TextInput
                             style={styles.input}
+                            placeholderTextColor="white" 
                             placeholder="Añade un jugador"
                             onChangeText={text => setUserName(text)}
                             ref={textInput}
@@ -50,24 +70,24 @@ export default function Names({ navigation, route }) {
                             <Image resizeMode="contain" style={styles.inputSubmitImage} source={require("../assets/mas.png")} />
                         </TouchableOpacity>
                     </View>
-
                     <ScrollView contentContainerStyle={styles.scrollContainerContent} style={styles.scrollContainer}>
                         {
                             users.map((user, index) => (
                                 <View style={styles.scrollContainerRow}>
+                                    <LottieView source={avatar} style={styles.scrollContainerRowAvatar} loop={true} autoPlay={true} />
                                     <Text numberOfLines={1} style={styles.scrollContainerRowName}>{user}</Text>
                                     <TouchableOpacity style={styles.scrollContainerRowImageWrapper} onPress={() => {
                                         let usersAux = users.filter((el, i) => i !== index);
                                         setUser(usersAux);
                                     }}>
                                         <Image source={require("../assets/equis.png")} style={styles.scrollContainerRowImage} />
+                                        
                                     </TouchableOpacity>
                                 </View>
                             ))
                         }
                     </ScrollView>
-
-                    <TouchableOpacity /* styles={styles.playButtonWrapper}  */onPress={() => {
+                    <TouchableOpacity onPress={() => {
                         if (adsHandlerRef.current.isLoadedIntersitial()) {
                             adsHandlerRef.current.showIntersitialAd()
                         } else {
@@ -78,12 +98,10 @@ export default function Names({ navigation, route }) {
                         <Image source={require("../assets/play.png")} style={styles.playButton} />
                     </TouchableOpacity>
                 </View>
-
                 <View style={styles.version}>
                     <Text style={styles.versionText}>v1.1.0</Text>
                 </View>
-
-            </ImageBackground>
+            </View>
         </>
     )
 }
@@ -95,30 +113,35 @@ const styles = StyleSheet.create({
     container: {
         width: wp("100%"),
         height: hp("100%"),
-        paddingTop: hp("7%"),
         alignItems: "center",
-        backgroundColor: "red"
+        // marginTop: hp("7%"),
+    },
+    lottieBg: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        resizeMode: "cover",
+        zIndex: -1
     },
     itemsWrapper: {
         width: wp("100%"),
-        height: hp("90%"),
+        height: hp("95%"),
     },
     headingWrapper: {
         width: "90%",
-        marginBottom: "5%",
+        marginVertical: "10%",
         alignSelf: "center",
     },
     heading: {
         fontFamily: "heading", 
         textAlign: "center",
         color: "#e9eaec",
-        fontSize: 45,
-        letterSpacing: -1,
+        fontSize: 48,
     },
     inputWrapper: {
         width: "90%",
         height: "7%",
-        marginBottom: "5%",
+        marginBottom: "8%",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -128,12 +151,14 @@ const styles = StyleSheet.create({
     input: {
         width: "75%",
         marginRight: "5%",
-        backgroundColor: "#e9eaec",
+        // backgroundColor: "#e9eaec",
+        backgroundColor: "rgba(0,0,0,0.55)",
+        color: "white",
         paddingLeft: 8,
         height: "100%",
         fontSize: 20,
         fontFamily: "heading",
-        borderRadius: 16,
+        borderRadius: 10,
     },
     inputSubmit: {
         width: "20%",
@@ -158,20 +183,24 @@ const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        marginVertical: 16
+        marginVertical: 16,
+    },
+    scrollContainerRowAvatar: {
+        width: "17%",
+        marginRight: "5%"
     },
     scrollContainerRowName: {
-        width: "85%",
+        width: "65%",
         fontSize: 23, 
         color: "white",
         fontFamily: "heading"
     },
     scrollContainerRowImageWrapper: {
-        width: "15%",
+        width: "13%",
     },
     scrollContainerRowImage: {
         width: "100%",
-        height: (500 * inputCrossRatio) / 10,
+        height: (500 * inputCrossRatio) / 11,
         resizeMode: "contain"
     },
     playButtonWrapper: {
@@ -183,7 +212,7 @@ const styles = StyleSheet.create({
 
     },
     playButton: {
-        width: "75%",
+        width: "65%",
         height: 150,
         resizeMode: "contain",
         alignSelf: "center"
@@ -193,7 +222,9 @@ const styles = StyleSheet.create({
         width: wp("100%"),
         height: hp("5%"),
         alignItems: "flex-end",
-        paddingHorizontal: 8
+        justifyContent: "flex-end",
+        paddingHorizontal: 8,
+        // backgroundColor: "green"
     },
     versionText: {
         fontWeight: "bold"

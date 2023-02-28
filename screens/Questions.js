@@ -9,6 +9,7 @@ import Question from "../src/components/Question"
 import AdsHandler from "../src/components/AdsHandler"
 import { bannerId } from "../src/utils/constants"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import LottieView from 'lottie-react-native';
 
 InAppReview.isAvailable();
 
@@ -126,8 +127,8 @@ export default function Questions({ route }) {
     return (
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} />
-            <ImageBackground source={require("../assets/background2.jpg")} resizeMode="cover" style={styles.container}>
-
+            <View style={styles.container}>
+                <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
                 <View style={styles.itemsWrapper}>
                     <View style={styles.nameWrapper}>
                         <Text numberOfLines={2} style={styles.name}>
@@ -143,7 +144,7 @@ export default function Questions({ route }) {
                         }}
                     />
 
-                    <Question question={question} fetchQuestion={() => fetchQuestion()} />
+                    <Question question={question} fetchQuestion={() => fetchQuestion()} mode={mode} />
 
                     <TouchableOpacity onPress={() => fetchQuestion()} style={styles.nextBtnWrapper}>
                         <Image style={styles.nextBtn} source={require('../assets/siguiente.png')} />
@@ -153,8 +154,7 @@ export default function Questions({ route }) {
                 <View style={styles.version}>
                     <Text style={styles.versionText}>v1.1.0</Text>
                 </View>
-
-            </ImageBackground>
+            </View>
         </>
     )
 }
@@ -166,7 +166,14 @@ const styles = StyleSheet.create({
     container: {
         width: wp("100%"),
         height: hp("100%"),
-        paddingTop: hp("7%"),
+        paddingTop: hp("5%"),
+    },
+    lottieBg: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        resizeMode: "cover",
+        zIndex: -1
     },
     itemsWrapper: {
         width: wp("100%"),
@@ -196,6 +203,7 @@ const styles = StyleSheet.create({
         width: wp("100%"),
         height: hp("5%"),
         alignItems: "flex-end",
+        justifyContent: "flex-end",
         paddingHorizontal: 8,
     },
     versionText: {

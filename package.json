@@ -36,7 +36,8 @@
     "react-native-screen": "^1.0.1",
     "react-native-screens": "^3.18.2",
     "react-native-url-polyfill": "^1.3.0",
-    "sentry-expo": "~6.0.0"
+    "sentry-expo": "~6.0.0",
+    "lottie-react-native": "5.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
