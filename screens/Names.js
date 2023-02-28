@@ -95,7 +95,7 @@ export default function Names({ navigation, route }) {
                         }
                     }
                     }>
-                        <Image source={require("../assets/play.png")} style={styles.playButton} />
+                        <Image source={require("../assets/boton-jugar.png")} style={styles.playButton} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.version}>
