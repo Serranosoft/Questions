@@ -10,7 +10,7 @@ const AdsHandler = forwardRef((props, ref) => {
         isLoaded: isLoadedIntersitial,
         isClosed: isClosedIntersitial,
         load: loadIntersitial,
-        show: showIntersitial } = useInterstitialAd(/* intersitialId */TestIds.INTERSTITIAL, {
+        show: showIntersitial } = useInterstitialAd(intersitialId/* TestIds.INTERSTITIAL */, {
             requestNonPersonalizedAdsOnly: true,
         });
 

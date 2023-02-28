@@ -1,4 +1,4 @@
-import { Image, ImageBackground, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View, Dimensions, Button, StyleSheet } from "react-native";
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View, Dimensions, StyleSheet } from "react-native";
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { Keyboard } from 'react-native'
 import "../src/fonts";

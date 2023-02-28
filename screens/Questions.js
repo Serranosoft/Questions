@@ -1,8 +1,8 @@
-import { Dimensions, Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { createRef, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { createRef, useEffect, useRef, useState } from "react";
 import { supabase } from "../src/supabaseClient";
 import "../src/fonts";
-import { BannerAd, BannerAdSize, TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import InAppReview from 'react-native-in-app-review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Question from "../src/components/Question"
@@ -137,7 +137,7 @@ export default function Questions({ route }) {
                     </View>
 
                     <BannerAd
-                        unitId={/* bannerId */TestIds.BANNER}
+                        unitId={bannerId/* TestIds.BANNER */}
                         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                         requestOptions={{
                             requestNonPersonalizedAdsOnly: true,
