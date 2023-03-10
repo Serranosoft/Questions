@@ -72,7 +72,7 @@ export default function Question({ question, fetchQuestion, mode }) {
 const styles = StyleSheet.create({
     container: {
         width: wp("85%"),
-        height: hp("35%"),
+        height: hp("40%"),
         backgroundColor: "white",
         padding: 20,
         marginBottom: hp("5%"),

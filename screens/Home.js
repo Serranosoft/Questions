@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
             </View>
 
             <View style={styles.version}>
-                <Text style={styles.versionText}>v1.1.0</Text>
+                <Text style={styles.versionText}>v1.1.1</Text>
             </View>
         </View>
     )

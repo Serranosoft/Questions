@@ -6,22 +6,11 @@
         "orientation": "portrait",
         "icon": "./assets/logo-new-icon.png",
         "userInterfaceStyle": "light",
+        "jsEngine": "hermes",
         "splash": {
             "image": "./assets/logo-new-icon.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
-        },
-        "hooks": {
-            "postPublish": [
-                {
-                    "file": "sentry-expo/upload-sourcemaps",
-                    "config": {
-                        "organization": "molly-digital",
-                        "project": "shotask",
-                        "authToken": "144023267fb94cdab40b9feec8a798f193463a9802c24edbbd05c12c727e1757"
-                    }
-                }
-            ]
         },
         "updates": {
             "fallbackToCacheTimeout": 0,
@@ -38,7 +27,7 @@
                 "foregroundImage": "./assets/logo-new-icon.png",
                 "backgroundColor": "#FFFFFF"
             },
-            "versionCode": 12,
+            "versionCode": 13,
             "package": "com.paulaymanu113.Questions"
         },
         "web": {
@@ -51,10 +40,7 @@
         },
         "runtimeVersion": {
             "policy": "sdkVersion"
-        },
-        "plugins": [
-            "sentry-expo"
-        ]
+        }
     },
     
     "react-native-google-mobile-ads": {
