@@ -1,51 +1,42 @@
 {
-    "expo": {
-        "name": "Shotask: Preguntas Picantes",
-        "slug": "Questions",
-        "version": "1.0.3",
-        "orientation": "portrait",
-        "icon": "./assets/logo-new-icon.png",
-        "userInterfaceStyle": "light",
-        "jsEngine": "hermes",
-        "splash": {
-            "image": "./assets/logo-new-icon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0,
-            "url": "https://u.expo.dev/bedb628d-b5a6-4a02-9e2d-c0ce93b65742"
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/logo-new-icon.png",
-                "backgroundColor": "#FFFFFF"
-            },
-            "versionCode": 13,
-            "package": "com.paulaymanu113.Questions"
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "bedb628d-b5a6-4a02-9e2d-c0ce93b65742"
-            }
-        },
-        "runtimeVersion": {
-            "policy": "sdkVersion"
-        }
+  "expo": {
+    "name": "Shotask: Preguntas Picantes",
+    "slug": "Questions",
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "icon": "./assets/logo-new-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo-new-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
-    
-    "react-native-google-mobile-ads": {
-      "android_app_id": "ca-app-pub-3963345159052388~4435137670",
-      "ios_app_id": "ca-app-pub-3963345159052388~4435137670"
+    "scheme": "shotask",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-new-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "versionCode": 14,
+      "package": "com.paulaymanu113.Questions"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bedb628d-b5a6-4a02-9e2d-c0ce93b65742"
+      }
     }
-    
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3963345159052388~4435137670",
+    "ios_app_id": "ca-app-pub-3963345159052388~4435137670"
+  }
 }

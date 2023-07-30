@@ -1,6 +1,6 @@
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import "../src/fonts";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LottieView from 'lottie-react-native';
 
 export default function Home({ navigation }) {
@@ -9,7 +9,7 @@ export default function Home({ navigation }) {
         <View style={styles.container}>
             <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
             <View style={styles.menu}>
-                <Image source={require("../assets/logo-new.jpg")} style={styles.logo} 
+                <Image source={require("../assets/logo-new.jpg")} style={styles.logo}
                 />
                 <TouchableOpacity
                     onPress={() =>
@@ -39,21 +39,14 @@ export default function Home({ navigation }) {
 }
 
 const win = Dimensions.get('window');
-const logoRatio = win.width/512;
+const logoRatio = win.width / 512;
 
-const btnRatio = win.width/322;
+const btnRatio = win.width / 322;
 
 const styles = StyleSheet.create({
     container: {
         width: wp("100%"),
         height: hp("100%"),
-    },
-    lottieBg: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        resizeMode: "cover",
-        zIndex: -1
     },
     menu: {
         width: "100%",
