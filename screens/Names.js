@@ -17,7 +17,7 @@ export default function Names({ navigation, route }) {
         if (mode) {
             switch(mode) {
                 case "couple":
-                    setAvatar(require("../assets/lottie/kiss.json") );
+                    setAvatar(require("../assets/lottie/couple.json") );
                     break;
                 case "friends":
                     setAvatar(require("../assets/lottie/smily.json") );

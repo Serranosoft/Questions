@@ -9,8 +9,8 @@ export const ui = {
         fontSize: 20,
     },
     menuImg: {
-        width: win.width * 0.85,
-        height: 114 * (win.width / 322),
+        // width: win.width * 0.85,
+        // height: 114 * (win.width / 322),
         
     }
 }

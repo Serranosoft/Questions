@@ -16,11 +16,15 @@ export default function Layout() {
         "Nunito": require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf"),
     });
 
-    const onLayoutRootView = useCallback(async () => {
+    useEffect(() => {
         if (fontsLoaded) {
             SplashScreen.hideAsync();
         }
-    }, [fontsLoaded]);
+    }, [fontsLoaded])
+
+    if (!fontsLoaded) {
+        return null;
+    }
 
     MobileAds()
         .initialize()
@@ -29,7 +33,7 @@ export default function Layout() {
         });
 
     return (
-        <View style={{ flex: 1, marginTop: StatusBar.currentHeight, position: "relative", width: "100%", height: "100%", Horizontal: 24, alignSelf: "center" }} onLayout={onLayoutRootView}>
+        <View style={{ flex: 1, marginTop: StatusBar.currentHeight, position: "relative", width: "100%", height: "100%", Horizontal: 24, alignSelf: "center" }}>
             <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <Slot />
