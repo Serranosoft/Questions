@@ -5,14 +5,11 @@ import { intersitialId } from "../../src/utils/constants"
 
 const AdsHandler = forwardRef((props, ref) => {
 
-    
     const {
         isLoaded: isLoadedIntersitial,
         isClosed: isClosedIntersitial,
         load: loadIntersitial,
-        show: showIntersitial } = useInterstitialAd(intersitialId/* TestIds.INTERSTITIAL */, {
-            requestNonPersonalizedAdsOnly: true,
-        });
+        show: showIntersitial } = useInterstitialAd(/* intersitialId */TestIds.INTERSTITIAL);
 
     useEffect(() => {
         loadIntersitial();
