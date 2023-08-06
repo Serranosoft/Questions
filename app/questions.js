@@ -9,7 +9,7 @@ import Animated, { Easing, withDelay, withTiming } from 'react-native-reanimated
 import { getRandomObjectFromArray } from '../src/utils/scripts';
 import QuestionsAnimationHandler from '../src/components/QuestionsAnimationHandler';
 import InAppReviewHandler from '../src/components/InAppReviewHandler';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import AdsHandler from '../src/components/AdsHandler';
 import { bannerId } from '../src/utils/constants';
 import OffersHandler from '../src/components/OffersHandler';
@@ -124,11 +124,11 @@ export default function Questions() {
                         <Text style={[ui.text, styles.name]} numberOfLines={2}>{user.name}</Text>
                     </Animated.View>
 
-                    {!premium && <BannerAd unitId={TestIds.BANNER/* bannerId */} size={BannerAdSize.LARGE_BANNER} requestOptions={{}} /> }
+                    {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.LARGE_BANNER} requestOptions={{ requestNonPersonalizedAdsOnly: false }} /> }
 
                     <Question question={question} tap={tap} animatedStyle={animatedStyle} fetchQuestion={fetchQuestion} />
 
-                    {!premium && <BannerAd unitId={TestIds.BANNER/* bannerId */} size={BannerAdSize.BANNER} requestOptions={{}} /> }
+                    {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.BANNER} requestOptions={{}} /> }
 
                     <TouchableOpacity style={{ alignSelf: "center" }} onPress={slideBtn}>
                         <Image style={styles.img} resizeMode="contain" source={require('../assets/siguiente.png')} />
