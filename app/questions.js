@@ -12,6 +12,7 @@ import InAppReviewHandler from '../src/components/InAppReviewHandler';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import AdsHandler from '../src/components/AdsHandler';
 import { bannerId } from '../src/utils/constants';
+import OffersHandler from '../src/components/OffersHandler';
 
 export default function Questions() {
 
@@ -30,6 +31,7 @@ export default function Questions() {
 
     const { tap, position, scale, animatedScale, animatedStyle } = QuestionsAnimationHandler({ fetchQuestion });
     const { askForReview } = InAppReviewHandler();
+    const { premium } = OffersHandler();
 
     // Calcular cantidad de preguntas que hay en base de datos.
     useEffect(() => {
@@ -122,19 +124,11 @@ export default function Questions() {
                         <Text style={[ui.text, styles.name]}>{user.name}</Text>
                     </Animated.View>
 
-                    <BannerAd
-                        unitId={TestIds.BANNER/* bannerId */}
-                        size={BannerAdSize.LARGE_BANNER}
-                        requestOptions={{}}
-                    />
+                    {!premium && <BannerAd unitId={TestIds.BANNER/* bannerId */} size={BannerAdSize.LARGE_BANNER} requestOptions={{}} /> }
 
                     <Question question={question} tap={tap} animatedStyle={animatedStyle} fetchQuestion={fetchQuestion} />
 
-                    <BannerAd
-                        unitId={TestIds.BANNER/* bannerId */}
-                        size={BannerAdSize.BANNER}
-                        requestOptions={{}}
-                    />
+                    {!premium && <BannerAd unitId={TestIds.BANNER/* bannerId */} size={BannerAdSize.BANNER} requestOptions={{}} /> }
 
                     <TouchableOpacity style={{ alignSelf: "center" }} onPress={slideBtn}>
                         <Image style={styles.img} resizeMode="contain" source={require('../assets/siguiente.png')} />

@@ -6,12 +6,14 @@ import LottieView from 'lottie-react-native';
 import { DataContext } from "../src/utils/DataContext";
 import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 import AdsHandler from "../src/components/AdsHandler";
+import OffersHandler from "../src/components/OffersHandler";
 
 export default function Names() {
 
     const { users, setUser } = useContext(DataContext);
 
     const { mode } = useLocalSearchParams();
+    const { premium } = OffersHandler();
 
     const avatars = [
         "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/1.json",
@@ -82,7 +84,7 @@ export default function Names() {
                         <Image style={styles.inputBtn} resizeMode="contain" source={require("../assets/mas.png")} />
                     </TouchableOpacity>
                 </View>
-                <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
+                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} /> }
                 <ScrollView style={styles.scrollContainer}>
                     {
                         users.map((user, index) => (
@@ -99,10 +101,11 @@ export default function Names() {
                         ))
                     }
                 </ScrollView>
-
-                <TouchableOpacity onPress={startGame}>
-                    <Image source={require("../assets/boton-jugar.png")} />
-                </TouchableOpacity>
+                { users.length > 0 && 
+                    <TouchableOpacity onPress={startGame}>
+                        <Image source={require("../assets/boton-jugar.png")} />
+                    </TouchableOpacity>
+                }
 
             </View>
         </>

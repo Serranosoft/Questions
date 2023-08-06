@@ -1,14 +1,13 @@
 import { Slot, SplashScreen } from "expo-router";
 import { View, StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MobileAds } from 'react-native-google-mobile-ads';
 import LottieView from 'lottie-react-native';
 import { useFonts } from "expo-font";
 import { DataContext } from "../src/utils/DataContext";
 
 SplashScreen.preventAutoHideAsync();
-
 export default function Layout() {
 
     // Carga de fuentes.
@@ -38,7 +37,7 @@ export default function Layout() {
     return (
         <View style={{ flex: 1, marginTop: StatusBar.currentHeight, position: "relative", justifyContent: "center" }}>
             <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
-            <GestureHandlerRootView style={{ flex: 0.87, width: "90%", alignSelf: "center", justifyContent: "center" }}>
+            <GestureHandlerRootView style={{ flex: 0.89, width: "100%", alignSelf: "center", justifyContent: "center", paddingHorizontal: 20 }}>
                 <DataContext.Provider value={{ users: users, setUser: setUser }}>
                     <Slot />
                 </DataContext.Provider>

@@ -1,7 +1,6 @@
-import { isLoaded } from "expo-font";
 import React, { forwardRef, useEffect, useImperativeHandle } from "react"
 import { TestIds, useInterstitialAd } from "react-native-google-mobile-ads";
-import { intersitialId } from "../../src/utils/constants"
+import OffersHandler from "./OffersHandler";
 
 const AdsHandler = forwardRef((props, ref) => {
 
@@ -11,8 +10,11 @@ const AdsHandler = forwardRef((props, ref) => {
         load: loadIntersitial,
         show: showIntersitial } = useInterstitialAd(/* intersitialId */TestIds.INTERSTITIAL);
 
+    const { premium } = OffersHandler();
+
+
     useEffect(() => {
-        loadIntersitial();
+        { !premium && loadIntersitial(); }
     }, [loadIntersitial])
 
     useImperativeHandle(ref, () => ({
@@ -36,7 +38,7 @@ const AdsHandler = forwardRef((props, ref) => {
                 props.closedIntersitialCallback();
             }
         } else {
-            loadIntersitial();
+            { !premium && loadIntersitial(); }
         }
 
     }, [isClosedIntersitial, props.closedIntersitialCallback])
@@ -46,7 +48,7 @@ const AdsHandler = forwardRef((props, ref) => {
         if (isLoadedIntersitial) {
             showIntersitial();
         } else {
-            loadIntersitial();
+            {! premium && loadIntersitial(); }
         }
     }
 

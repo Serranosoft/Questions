@@ -4,6 +4,15 @@ export const ui = {
         fontFamily: "Nunito",
         color: "#000",
         fontSize: 20,
+    },
+    lock: {
+        position: "absolute",
+        top: -30,
+        right: 5,
+        width: 75,
+        height: 75,
+        zIndex: 1,
+        transform: [{ rotate: "20deg" }]
     }
 }
 
