@@ -121,7 +121,7 @@ export default function Questions() {
                     
                     <Animated.View style={[animatedScale, styles.user]}>
                         <LottieView source={{ uri: user.avatar }} style={styles.lottie} loop={false} autoPlay={false} />
-                        <Text style={[ui.text, styles.name]}>{user.name}</Text>
+                        <Text style={[ui.text, styles.name]} numberOfLines={2}>{user.name}</Text>
                     </Animated.View>
 
                     {!premium && <BannerAd unitId={TestIds.BANNER/* bannerId */} size={BannerAdSize.LARGE_BANNER} requestOptions={{}} /> }

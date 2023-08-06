@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Text } from "react-native";
-import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet, Text } from "react-native";
+import { GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { ui } from "../utils/styles";
 
@@ -33,28 +33,4 @@ const styles = StyleSheet.create({
     question: {
         fontSize: 27,
     }
-    // container: {
-    //     width: wp("85%"),
-    //     height: hp("40%"),
-    //     backgroundColor: "white",
-    //     padding: 20,
-    //     marginBottom: hp("5%"),
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     marginTop: hp("5%"),
-    //     borderRadius: 10,
-    //     position: "relative",
-    // },
-    // question: {
-    //     fontSize: 30,
-    //     fontFamily: "text",
-    //     letterSpacing: -1.5,
-    // },
-    // avatar: {
-    //     width: 45,
-    //     height: 45,
-    //     position: "absolute",
-    //     bottom: 0,
-    //     right: 0,
-    // },
 })

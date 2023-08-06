@@ -65,7 +65,7 @@ export default function Names() {
     return (
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} closedIntersitialCallback={() => { closedIntersitialCallback() }} />
-            <View style={{ justifyContent: "center", alignItems: "center", flex: 1, gap: 8 }}>
+            <View style={styles.container}>
                 <Stack.Screen options={{ headerShown: false }} />
                 <View style={styles.inputWrapper}>
                     <View style={styles.avatarWrapper}>
@@ -84,7 +84,7 @@ export default function Names() {
                         <Image style={styles.inputBtn} resizeMode="contain" source={require("../assets/mas.png")} />
                     </TouchableOpacity>
                 </View>
-                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} /> }
+                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
                 <ScrollView style={styles.scrollContainer}>
                     {
                         users.map((user, index) => (
@@ -101,7 +101,7 @@ export default function Names() {
                         ))
                     }
                 </ScrollView>
-                { users.length > 0 && 
+                {users.length > 0 &&
                     <TouchableOpacity onPress={startGame}>
                         <Image source={require("../assets/boton-jugar.png")} />
                     </TouchableOpacity>
@@ -113,6 +113,12 @@ export default function Names() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+        gap: 8
+    },
 
     inputWrapper: {
         width: "100%",
@@ -121,6 +127,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 8,
     },
+
     avatarWrapper: {
         flex: 1,
         flexDirection: "row",
@@ -130,13 +137,14 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: "#9362A3",
         borderRadius: 20,
-
     },
+
     actionImg: {
         width: 35,
         height: 35,
         marginLeft: 10,
     },
+
     input: {
         flex: 1,
         height: 55,
@@ -144,6 +152,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: "black",
     },
+
     inputBtn: {
         width: 55,
         height: 55,
@@ -157,6 +166,7 @@ const styles = StyleSheet.create({
         borderColor: "#9362A3",
         borderRadius: 20,
     },
+
     userRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -166,6 +176,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "lightgray"
     },
+
     lottie: {
         width: 57,
         aspectRatio: 1,

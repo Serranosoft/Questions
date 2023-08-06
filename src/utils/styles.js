@@ -13,6 +13,10 @@ export const ui = {
         height: 75,
         zIndex: 1,
         transform: [{ rotate: "20deg" }]
+    },
+
+    disabled: {
+        opacity: 0.5
     }
 }
 

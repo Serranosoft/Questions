@@ -12,7 +12,6 @@ export default function Layout() {
 
     // Carga de fuentes.
     const [fontsLoaded] = useFonts({
-        "Chewy": require("../assets/fonts/Chewy/Chewy-Regular.ttf"),
         "Nunito": require("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf"),
     });
 
@@ -35,9 +34,9 @@ export default function Layout() {
         });
 
     return (
-        <View style={{ flex: 1, marginTop: StatusBar.currentHeight, position: "relative", justifyContent: "center" }}>
+        <View style={styles.container}>
             <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
-            <GestureHandlerRootView style={{ flex: 0.89, width: "100%", alignSelf: "center", justifyContent: "center", paddingHorizontal: 20 }}>
+            <GestureHandlerRootView style={styles.wrapper}>
                 <DataContext.Provider value={{ users: users, setUser: setUser }}>
                     <Slot />
                 </DataContext.Provider>
@@ -48,6 +47,21 @@ export default function Layout() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        marginTop: StatusBar.currentHeight, 
+        position: "relative", 
+        justifyContent: "center"
+    },
+
+    wrapper: {
+        flex: 0.89, 
+        width: "100%", 
+        alignSelf: "center", 
+        justifyContent: "center", 
+        paddingHorizontal: 20
+    },
+
     lottieBg: {
         position: 'absolute',
         width: '100%',
