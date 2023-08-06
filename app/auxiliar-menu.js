@@ -26,7 +26,7 @@ export default function AuxiliarMenu() {
                         </TouchableOpacity>
                         {
                             premium ?
-                                <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "adult" } })}>
+                                <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "+18" } })}>
                                     <Image source={require("../assets/boton-mas-18.png")} />
                                 </TouchableOpacity>
                                 :

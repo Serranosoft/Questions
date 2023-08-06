@@ -20,7 +20,7 @@ export default function App() {
                 </TouchableOpacity>
                 {
                     premium ?
-                        <TouchableOpacity onPress={() => router.push({ pathname: "auxiliar-menu", params: { mode: "challenges" } })}>
+                        <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "challenges" } })}>
                             <Image source={require("../assets/boton-retos.png")} style={ui.menuImg} contentFit={'contain'} />
                         </TouchableOpacity>
                         :

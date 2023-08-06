@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/logo-new-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "versionCode": 14,
+      "versionCode": 15,
       "package": "com.paulaymanu113.Questions"
     },
     "web": {
