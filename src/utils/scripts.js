@@ -1,8 +1,16 @@
-export function getRandomObjectFromArray(array) {
-    if (!Array.isArray(array) || array.length === 0) {
-        throw new Error("El argumento debe ser un array no vacío.");
-    }
+export function createObjectFromArray(strings) {
+    const objectArray = strings.map((value, index) => ({
+        id: index,
+        question: value,
+    }));
 
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
+    return objectArray;
+}
+
+export function shuffleArr(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }

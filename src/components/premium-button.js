@@ -9,7 +9,7 @@ export default function PremiumButton() {
         <TouchableOpacity style={{marginBottom: 40}} onPress={() => router.push({ pathname: "buy-premium" })}>
             <View style={styles.container}>
                 <LottieView
-                    source={{ uri: "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/15.json" }}
+                    source={require("../../assets/lottie/15.json")}
                     style={{ width: 40, height: 40, aspectRatio: 1, }}
                     loop={true}
                     autoPlay={true}

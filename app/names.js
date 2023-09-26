@@ -4,7 +4,7 @@ import { Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpac
 import { ui } from "../src/utils/styles";
 import LottieView from 'lottie-react-native';
 import { DataContext } from "../src/utils/DataContext";
-import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
+import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 import AdsHandler from "../src/components/AdsHandler";
 import OffersHandler from "../src/components/OffersHandler";
 import { bannerId } from "../src/utils/constants";
@@ -16,34 +16,12 @@ export default function Names() {
     const { mode } = useLocalSearchParams();
     const { premium } = OffersHandler();
 
-    const avatars = [
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/1.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/2.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/3.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/4.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/5.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/6.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/7.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/8.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/9.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/10.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/11.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/12.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/13.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/14.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/15.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/16.json",
-        "https://ukgelqpfnlytdjdnyrcd.supabase.co/storage/v1/object/public/animations/17.json",
-    ]
-
     const [username, setUsername] = useState("");
     const input = useRef();
 
     function addUser() {
         if (username.length > 0) {
-            const random = Math.floor(Math.random() * avatars.length);
-            const avatar = avatars[random];
-            setUser([...users, { name: username, avatar: avatar }]);
+            setUser([...users, username ]);
             Keyboard.dismiss();
             input.current.clear();
             setUsername("");
@@ -85,13 +63,12 @@ export default function Names() {
                         <Image style={styles.inputBtn} resizeMode="contain" source={require("../assets/mas.png")} />
                     </TouchableOpacity>
                 </View>
-                {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
+                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
                 <ScrollView style={styles.scrollContainer}>
                     {
                         users.map((user, index) => (
                             <View style={styles.userRow} key={index}>
-                                <LottieView source={{ uri: user.avatar }} style={styles.lottie} loop={true} autoPlay={true} />
-                                <Text numberOfLines={1} style={[ui.text, { maxWidth: 200 }]}>{user.name}</Text>
+                                <Text numberOfLines={1} style={[ui.text, { maxWidth: 200 }]}>{user}</Text>
                                 <TouchableOpacity style={styles.scrollContainerRowImageWrapper} onPress={() => {
                                     const usersAux = users.filter((_, i) => i !== index);
                                     setUser(usersAux);
