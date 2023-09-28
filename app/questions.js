@@ -7,8 +7,9 @@ import AdsHandler from '../src/components/AdsHandler';
 import OffersHandler from '../src/components/OffersHandler';
 import retrieveQuestions from '../src/utils/data';
 import { createObjectFromArray, shuffleArr } from '../src/utils/scripts';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { DataContext } from '../src/utils/DataContext';
+import { bannerId } from '../src/utils/constants';
 
 export default function Questions() {
 
@@ -76,10 +77,10 @@ export default function Questions() {
 
     // Actualización de estado de los anuncios
     useEffect(() => {
-        if (triggerAd === 4) {
+        if (triggerAd === 5) {
             adsHandlerRef.current.showIntersitialAd();
             setTriggerAd(0)
-        } else if (triggerAd === 3) {
+        } else if (triggerAd === 4) {
             askForReview();
         }
     }, [triggerAd])
@@ -88,7 +89,7 @@ export default function Questions() {
         <>
             <AdsHandler ref={adsHandlerRef} adType={[0]} />
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "100%", gap: 40, position: "relative" }}>
-                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.LARGE_BANNER} requestOptions={{ requestNonPersonalizedAdsOnly: false }} />}
+                {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.LARGE_BANNER} requestOptions={{ requestNonPersonalizedAdsOnly: false }} />}
                 <View style={styles.questionsWrapper}>
                     <View style={styles.inner}></View>
                     {questions.map((element, index) => {
@@ -99,7 +100,7 @@ export default function Questions() {
                         return <Question question={element["question"]} rotation={rotation} setReaded={setReaded} key={element["id"]} user={players[index]} />
                     })}
                 </View>
-                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.BANNER} requestOptions={{}} />}
+                {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.BANNER} requestOptions={{}} />}
             </View>
         </>
 

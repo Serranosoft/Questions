@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from "react"
-import { TestIds, useInterstitialAd } from "react-native-google-mobile-ads";
+import { useInterstitialAd } from "react-native-google-mobile-ads";
 import OffersHandler from "./OffersHandler";
 import { intersitialId } from "../utils/constants";
 
@@ -9,7 +9,7 @@ const AdsHandler = forwardRef((props, ref) => {
         isLoaded: isLoadedIntersitial,
         isClosed: isClosedIntersitial,
         load: loadIntersitial,
-        show: showIntersitial } = useInterstitialAd(TestIds.INTERSTITIAL);
+        show: showIntersitial } = useInterstitialAd(intersitialId);
 
     const { premium } = OffersHandler();
 
@@ -20,10 +20,10 @@ const AdsHandler = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         loadIntersitialAd() {
-            // loadIntersitial();
+            loadIntersitial();
         },
         showIntersitialAd() {
-            // showIntersitialAd();
+            showIntersitialAd();
         },
         isClosedIntersitial() {
             return isClosedIntersitial;

@@ -3,7 +3,7 @@ import { createRef, useContext, useRef, useState } from "react";
 import { Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ui } from "../src/utils/styles";
 import { DataContext } from "../src/utils/DataContext";
-import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 import AdsHandler from "../src/components/AdsHandler";
 import OffersHandler from "../src/components/OffersHandler";
 import { bannerId } from "../src/utils/constants";
@@ -62,7 +62,7 @@ export default function Names() {
                         <Image style={styles.inputBtn} resizeMode="contain" source={require("../assets/mas.png")} />
                     </TouchableOpacity>
                 </View>
-                {!premium && <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
+                {!premium && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
                 <ScrollView style={styles.scrollContainer}>
                     {
                         users.map((user, index) => (

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shotask: Preguntas Picantes",
     "slug": "Questions",
-    "version": "1.0.3",
+    "version": "1.1",
     "orientation": "portrait",
     "icon": "./assets/logo-new-icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/logo-new-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "versionCode": 15,
+      "versionCode": 16,
       "package": "com.paulaymanu113.Questions"
     },
     "web": {
