@@ -3,37 +3,45 @@ import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Stack, router } from "expo-router";
 import PremiumButton from "../src/components/premium-button";
 import OffersHandler from "../src/components/OffersHandler";
+import { useContext } from "react";
+import { DataContext } from "../src/utils/DataContext";
+import LangSelector from "../src/components/lang-selector";
 
 export default function App() {
 
     const { premium } = OffersHandler();
+    const { lang } = useContext(DataContext);
 
     return (
         <View style={{ flex: 1 }}>
+
+            <LangSelector />
             {!premium && <PremiumButton />}
+
             <Stack.Screen options={{ headerShown: false }} />
             <View style={styles.menu}>
+
                 <View style={styles.logo}><Image source={require("../assets/logo-new.jpg")} style={app.logo} /></View>
-                
-                <TouchableOpacity onPress={() => router.push({ pathname: "auxiliar-menu", params: { mode: "questions" } })}>
-                    <Image source={require("../assets/boton-preguntas.png")} />
+
+                <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "auxiliar-menu", params: { mode: "questions" } })}>
+                    {lang.locale == "es-ES" ? <Image source={require("../assets/boton-preguntas.png")} /> : <Image source={require("../assets/boton-preguntas-ingles.png")} />}
                 </TouchableOpacity>
                 {
                     premium ?
-                        <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "challenges" } })}>
-                            <Image source={require("../assets/boton-retos.png")} style={ui.menuImg} contentFit={'contain'} />
+                        <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "names", params: { mode: "challenges" } })}>
+                            {lang.locale == "es-ES" ? <Image source={require("../assets/boton-retos.png")} contentFit={'contain'} /> : <Image source={require("../assets/boton-retos-ingles.png")} contentFit={'contain'} />}
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity onPress={() => router.push({ pathname: "buy-premium" })}>
+                        <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "buy-premium" })}>
                             <View style={{ position: "relative" }}>
                                 <Image source={require("../assets/lock.png")} style={ui.lock} />
-                                <Image source={require("../assets/boton-retos.png")} style={ui.disabled} />
+                                {lang.locale == "es-ES" ? <Image source={require("../assets/boton-retos.png")} style={ui.disabled} /> : <Image source={require("../assets/boton-retos-ingles.png")} style={ui.disabled} />}
                             </View>
                         </TouchableOpacity>
 
                 }
-                <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "i_never" } })}>
-                    <Image source={require("../assets/boton-yo-nunca.png")} style={ui.menuImg} contentFit={'contain'} />
+                <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "names", params: { mode: "i_never" } })}>
+                    {lang.locale == "es-ES" ? <Image source={require("../assets/boton-yo-nunca.png")} contentFit={'contain'} /> : <Image source={require("../assets/boton-yo-nunca-ingles.png")} contentFit={'contain'} />}
                 </TouchableOpacity>
             </View>
         </View>
@@ -42,16 +50,14 @@ export default function App() {
 
 const styles = StyleSheet.create({
     menu: {
-        justifyContent: "center", 
-        alignItems: "center", 
-        flex: 1, 
-        gap: 28, 
-        marginTop: 24
+        justifyContent: "center",
+        gap: 28,
+        marginTop: 24,
     },
 
     logo: {
         elevation: 50,
-        shadowColor: "black", 
+        shadowColor: "black",
         borderRadius: 100
     }
 });

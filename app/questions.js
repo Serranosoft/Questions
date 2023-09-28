@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { createRef, useEffect, useRef, useState } from 'react';
-import LottieView from 'lottie-react-native';
+import { createRef, useContext, useEffect, useState } from 'react';
 import Question from '../src/components/Question';
 import InAppReviewHandler from '../src/components/InAppReviewHandler';
 import AdsHandler from '../src/components/AdsHandler';
@@ -9,12 +8,14 @@ import OffersHandler from '../src/components/OffersHandler';
 import retrieveQuestions from '../src/utils/data';
 import { createObjectFromArray, shuffleArr } from '../src/utils/scripts';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { DataContext } from '../src/utils/DataContext';
 
 export default function Questions() {
 
     const { users, mode } = useLocalSearchParams();
     const { askForReview } = InAppReviewHandler();
     const { premium } = OffersHandler();
+    const { lang } = useContext(DataContext);
 
     const [allQuestions, setAllQuestions] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -28,7 +29,7 @@ export default function Questions() {
     // Al obtener todas las preguntas, actualiza el estado para mostrar 8 preguntas.
     useEffect(() => {
         if (allQuestions.length < 1) {
-            const arrTmp = retrieveQuestions(mode);
+            const arrTmp = retrieveQuestions(mode, lang.locale);
             const shuffled = shuffleArr(arrTmp);
             const objArr = createObjectFromArray(shuffled);
             setAllQuestions(objArr)
@@ -49,6 +50,7 @@ export default function Questions() {
 
     // Actualización de las preguntas leídas
     useEffect(() => {
+        setTriggerAd((trigger) => trigger + 1);
         if (condition = questions.length - readed === 3) {
             const remaining = questions.slice(0, questions.length - 4); // 3 preguntas restantes + la pregunta actual
             const newQuestions = allQuestions.splice(0, 4); // 4 Preguntas nuevas

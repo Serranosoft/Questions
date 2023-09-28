@@ -6,7 +6,7 @@ import { ui } from "../utils/styles";
 export default function PremiumButton() {
 
     return (
-        <TouchableOpacity style={{marginBottom: 40}} onPress={() => router.push({ pathname: "buy-premium" })}>
+        <TouchableOpacity style={{marginBottom: 64}} onPress={() => router.push({ pathname: "buy-premium" })}>
             <View style={styles.container}>
                 <LottieView
                     source={require("../../assets/lottie/15.json")}
@@ -23,7 +23,7 @@ export default function PremiumButton() {
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        top: 0,
+        top: -10,
         right: -20,
         flexDirection: "row", 
         alignItems: "center", 

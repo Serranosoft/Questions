@@ -2,7 +2,6 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { createRef, useContext, useRef, useState } from "react";
 import { Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ui } from "../src/utils/styles";
-import LottieView from 'lottie-react-native';
 import { DataContext } from "../src/utils/DataContext";
 import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 import AdsHandler from "../src/components/AdsHandler";
@@ -11,7 +10,7 @@ import { bannerId } from "../src/utils/constants";
 
 export default function Names() {
 
-    const { users, setUser } = useContext(DataContext);
+    const { users, setUser, lang } = useContext(DataContext);
 
     const { mode } = useLocalSearchParams();
     const { premium } = OffersHandler();
@@ -52,7 +51,7 @@ export default function Names() {
                         <TextInput
                             style={styles.input}
                             placeholderTextColor="black"
-                            placeholder="Añade un jugador"
+                            placeholder={lang.t('addPlayer')}
                             onChangeText={text => setUsername(text)}
                             ref={input}
                             clearButtonMode="always"
@@ -81,7 +80,7 @@ export default function Names() {
                 </ScrollView>
                 {users.length > 0 &&
                     <TouchableOpacity onPress={startGame}>
-                        <Image source={require("../assets/boton-jugar.png")} />
+                        {lang.locale == "es-ES" ? <Image source={require("../assets/boton-jugar.png")} /> : <Image source={require("../assets/boton-jugar-ingles.png")} /> } 
                     </TouchableOpacity>
                 }
 

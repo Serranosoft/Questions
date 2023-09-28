@@ -23,8 +23,9 @@ export const ui = {
 export const app = {
     logo: {
         width: "100%",
-        height: 180,
+        height: 135,
         aspectRatio: 1,
         borderRadius: 100,
+        alignSelf: "center",
     }
 }

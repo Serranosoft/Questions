@@ -3,11 +3,14 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import OffersHandler from "../src/components/OffersHandler";
 import PremiumButton from "../src/components/premium-button";
 import { ui } from "../src/utils/styles";
+import { useContext } from "react";
+import { DataContext } from "../src/utils/DataContext";
 
 export default function AuxiliarMenu() {
 
     const { mode } = useLocalSearchParams();
     const { premium } = OffersHandler();
+    const { lang } = useContext(DataContext);
 
     return (
         <View style={{ flex: 1 }}>
@@ -19,10 +22,10 @@ export default function AuxiliarMenu() {
                     mode === "questions" &&
                     <>
                         <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "couple" } })}>
-                            <Image source={require("../assets/boton-parejas.png")} />
+                            { lang.locale == "es-ES" ? <Image source={require("../assets/boton-parejas.png")} /> : <Image source={require("../assets/boton-parejas-ingles.png")} /> }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => router.push({ pathname: "names", params: { mode: "friends" } })}>
-                            <Image source={require("../assets/boton-amigos.png")} />
+                            { lang.locale == "es-ES" ? <Image source={require("../assets/boton-amigos.png")} /> : <Image source={require("../assets/boton-amigos-ingles.png")} /> }
                         </TouchableOpacity>
                         {
                             premium ?
