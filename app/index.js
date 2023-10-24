@@ -3,14 +3,19 @@ import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Stack, router } from "expo-router";
 import PremiumButton from "../src/components/premium-button";
 import OffersHandler from "../src/components/OffersHandler";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../src/utils/DataContext";
 import LangSelector from "../src/components/lang-selector";
+import { scheduleWeeklyNotification } from "../src/utils/notifications";
 
 export default function App() {
 
     const { premium } = OffersHandler();
     const { lang } = useContext(DataContext);
+
+    useEffect(() => {
+        scheduleWeeklyNotification();
+    }, [])
 
     return (
         <View style={{ flex: 1 }}>

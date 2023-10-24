@@ -2,13 +2,13 @@ import { Slot, SplashScreen } from "expo-router";
 import { View, StatusBar, StyleSheet, Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
-import { MobileAds } from 'react-native-google-mobile-ads';
 import LottieView from 'lottie-react-native';
 import { useFonts } from "expo-font";
 import { DataContext } from "../src/utils/DataContext";
 import { translations } from "../src/utils/localizations";
 import * as Localization from "expo-localization";
 import { I18n } from 'i18n-js'
+import * as Notifications from 'expo-notifications';
 
 SplashScreen.preventAutoHideAsync();
 export default function Layout() {
@@ -33,16 +33,21 @@ export default function Layout() {
         }
     }, [fontsLoaded])
 
+    
+    useEffect(() => {
+        Notifications.setNotificationHandler({
+            handleNotification: async () => ({
+                shouldShowAlert: true,
+                shouldPlaySound: false,
+                shouldSetBadge: false,
+            }),
+        });
+    }, [])
+    
     if (!fontsLoaded) {
         return null;
     }
-
-    MobileAds()
-        .initialize()
-        .then(adapterStatuses => {
-            // Initialization complete!
-        });
-
+    
     return (
         <View style={styles.container}>
             <LottieView source={require("../assets/lottie/background-color2.json")} style={styles.lottieBg} loop={true} autoPlay={true} />
