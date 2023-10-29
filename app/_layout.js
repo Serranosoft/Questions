@@ -1,5 +1,5 @@
 import { Slot, SplashScreen } from "expo-router";
-import { View, StatusBar, StyleSheet, Text } from "react-native";
+import { View, StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import LottieView from 'lottie-react-native';

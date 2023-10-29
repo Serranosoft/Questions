@@ -84,10 +84,14 @@ export function getLeftTimeToNextSaturday() {
     const proximoSabado = new Date(hoy);
     proximoSabado.setDate(hoy.getDate() + diasHastaSabado);
 
-    // Establece la hora a las 19:00:00 para el próximo sábado
-    proximoSabado.setHours(19, 0, 0, 0);
+    // Establece la hora a las 21:00:00 para el próximo sábado
+    proximoSabado.setHours(21, 0, 0, 0);
 
-    // Calcula la diferencia en segundos entre la fecha actual y el próximo sábado a las 19:00
+    if (hoy > proximoSabado) {
+        proximoSabado.setDate(proximoSabado.getDate() + 7); // Añade 7 días para el próximo sábado
+    }
+
+    // Calcula la diferencia en segundos entre la fecha actual y el próximo sábado a las 21:00
     const diferenciaEnSegundos = Math.floor((proximoSabado - hoy) / 1000);
 
     return diferenciaEnSegundos;
