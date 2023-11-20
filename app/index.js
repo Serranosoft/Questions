@@ -28,25 +28,28 @@ export default function App() {
 
                 <View style={styles.logo}><Image source={require("../assets/logo-new.jpg")} style={app.logo} /></View>
 
-                <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "auxiliar-menu", params: { mode: "questions" } })}>
-                    {lang.locale == "es-ES" ? <Image source={require("../assets/boton-preguntas.png")} /> : <Image source={require("../assets/boton-preguntas-ingles.png")} />}
+                <TouchableOpacity style={styles.imageWrapper} onPress={() => router.push({ pathname: "auxiliar-menu", params: { mode: "questions" } })}>
+                    {lang.locale == "es-ES" ? <Image style={styles.image} source={require("../assets/boton-preguntas.png")} /> : <Image style={styles.image} source={require("../assets/boton-preguntas-ingles.png")} />}
                 </TouchableOpacity>
                 {
                     premium ?
-                        <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "names", params: { mode: "challenges" } })}>
-                            {lang.locale == "es-ES" ? <Image source={require("../assets/boton-retos.png")} contentFit={'contain'} /> : <Image source={require("../assets/boton-retos-ingles.png")} contentFit={'contain'} />}
+                        <TouchableOpacity style={styles.imageWrapper} onPress={() => router.push({ pathname: "names", params: { mode: "challenges" } })}>
+                            {lang.locale == "es-ES" ? <Image source={require("../assets/boton-retos.png")} /> : <Image style={styles.image} source={require("../assets/boton-retos-ingles.png")} />}
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "buy-premium" })}>
-                            <View style={{ position: "relative" }}>
-                                <Image source={require("../assets/lock.png")} style={ui.lock} />
-                                {lang.locale == "es-ES" ? <Image source={require("../assets/boton-retos.png")} style={ui.disabled} /> : <Image source={require("../assets/boton-retos-ingles.png")} style={ui.disabled} />}
+                        <TouchableOpacity style={styles.imageWrapper} onPress={() => router.push({ pathname: "buy-premium" })}>
+                            <View style={[styles.imageWrapper, { position: "relative" }]}>
+                                <Image source={require("../assets/lock.png")} style={[ui.lock, { width: 55, height: 55, top: -20 }]} />
+                                {lang.locale == "es-ES" ? <Image style={[ui.disabled, styles.image]} source={require("../assets/boton-retos.png")} /> : <Image style={[ui.disabled, styles.image]} source={require("../assets/boton-retos-ingles.png")} />}
                             </View>
                         </TouchableOpacity>
 
                 }
-                <TouchableOpacity style={{ alignSelf: "center" }} onPress={() => router.push({ pathname: "names", params: { mode: "i_never" } })}>
-                    {lang.locale == "es-ES" ? <Image source={require("../assets/boton-yo-nunca.png")} contentFit={'contain'} /> : <Image source={require("../assets/boton-yo-nunca-ingles.png")} contentFit={'contain'} />}
+                <TouchableOpacity style={styles.imageWrapper} onPress={() => router.push({ pathname: "names", params: { mode: "i_never" } })}>
+                    {lang.locale == "es-ES" ? <Image style={styles.image} source={require("../assets/boton-yo-nunca.png")} /> : <Image style={styles.image} source={require("../assets/boton-yo-nunca-ingles.png")} />}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.imageWrapper} onPress={() => router.push({ pathname: "names", params: { mode: "guess" } })}>
+                    {lang.locale == "es-ES" ? <Image style={styles.image} source={require("../assets/boton-adivina.png")} /> : <Image style={styles.image} source={require("../assets/boton-adivina-ingles.png")} />}
                 </TouchableOpacity>
             </View>
         </View>
@@ -64,5 +67,18 @@ const styles = StyleSheet.create({
         elevation: 50,
         shadowColor: "black",
         borderRadius: 100
+    },
+
+    imageWrapper: {
+        alignSelf: "center",
+        width: 275,
+        height: 95
+    },
+
+    image: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: "contain"
     }
 });

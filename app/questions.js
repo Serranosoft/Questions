@@ -67,7 +67,7 @@ export default function Questions() {
         if (questions.length > 0 && allQuestions.length > 0) {
             if (questions.length >= allQuestions.length) {
                 // allQuestions debe recargarse de nuevo.
-                const arrTmp = retrieveQuestions(mode);
+                const arrTmp = retrieveQuestions(mode, lang.locale);
                 const shuffled = shuffleArr(arrTmp);
                 const objArr = createObjectFromArray(shuffled);
                 setAllQuestions(objArr)
